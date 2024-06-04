@@ -1,5 +1,5 @@
---Version 0.1
+A simple 2D prototype made in Godot 4
 
-Just basic functionalities with a few issues to fix. But still has SOME value, right?
+This project is for learning purpose only
 
 By DavyShaegar 
