@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://b072yp7vg0pq5"]
+
+[ext_resource type="Texture2D" uid="uid://cwlpat1thb6sr" path="res://Graphics/Character/dagger.png" id="1_hgujv"]
+[ext_resource type="Script" path="res://Scripts/dagger.gd" id="1_n71yv"]
+[ext_resource type="AudioStream" uid="uid://b7mus8bv64fiw" path="res://Sounds/sfx/daggerthrow.mp3" id="3_yrcij"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_a7pqa"]
+
+[node name="DaggerProjectile" type="Node2D"]
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 12
+script = ExtResource("1_n71yv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+light_mask = 16
+visibility_layer = 16
+shape = SubResource("CapsuleShape2D_a7pqa")
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+position = Vector2(-2, 0)
+rotation = -0.785398
+texture = ExtResource("1_hgujv")
+metadata/_edit_lock_ = true
+
+[node name="daggerthrow" type="AudioStreamPlayer2D" parent="Area2D"]
+stream = ExtResource("3_yrcij")
+
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]

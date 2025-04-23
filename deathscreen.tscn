@@ -1,0 +1,91 @@
+[gd_scene load_steps=7 format=3 uid="uid://dddwa1pej1urq"]
+
+[ext_resource type="Script" path="res://Scripts/deathscreen.gd" id="1_40wyy"]
+[ext_resource type="StyleBox" uid="uid://cll471d8wa546" path="res://Templates/new_style_box_flat.tres" id="1_u1krv"]
+[ext_resource type="StyleBox" uid="uid://3ffggm3wgw5c" path="res://Templates/deathbutton_normal.tres" id="2_fp3vn"]
+[ext_resource type="StyleBox" uid="uid://bcxhkn1dsf4pt" path="res://Templates/deathbutton_hover.tres" id="3_21g3a"]
+[ext_resource type="Texture2D" uid="uid://cse7bqvspevds" path="res://Graphics/Asset 12.png" id="3_uuden"]
+[ext_resource type="StyleBox" uid="uid://dcthr7t6oyqfo" path="res://Templates/deathbutton_pressed.tres" id="4_7jpyq"]
+
+[node name="Deathscreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_40wyy")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_right = 256.0
+offset_bottom = 168.0
+theme_override_styles/panel = ExtResource("1_u1krv")
+
+[node name="Asset12" type="Sprite2D" parent="."]
+position = Vector2(208, 77)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_uuden")
+
+[node name="Restart" type="Button" parent="."]
+layout_mode = 2
+offset_left = 32.0
+offset_top = 112.0
+offset_right = 112.0
+offset_bottom = 142.0
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("2_fp3vn")
+theme_override_styles/hover = ExtResource("3_21g3a")
+theme_override_styles/pressed = ExtResource("4_7jpyq")
+text = "Restart"
+
+[node name="MainMenu" type="Button" parent="."]
+layout_mode = 2
+offset_left = 144.0
+offset_top = 112.0
+offset_right = 199.0
+offset_bottom = 142.0
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("2_fp3vn")
+theme_override_styles/hover = ExtResource("3_21g3a")
+theme_override_styles/pressed = ExtResource("4_7jpyq")
+text = "Quit"
+
+[node name="title" type="CenterContainer" parent="."]
+layout_mode = 0
+offset_left = 32.0
+offset_right = 224.0
+offset_bottom = 45.0
+
+[node name="gameover" type="Label" parent="title"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.407843, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 5
+theme_override_font_sizes/font_size = 32
+text = "Game Over"
+horizontal_alignment = 1
+
+[node name="scorescontainer" type="CenterContainer" parent="."]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 50.0
+offset_right = 107.0
+offset_bottom = 100.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="scorescontainer"]
+layout_mode = 2
+
+[node name="score" type="Label" parent="scorescontainer/VBoxContainer"]
+layout_mode = 2
+text = "Score:"
+
+[node name="highscore" type="Label" parent="scorescontainer/VBoxContainer"]
+layout_mode = 2
+text = "High Score:"
+
+[connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
+[connection signal="pressed" from="Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="MainMenu" to="." method="_on_main_menu_pressed"]

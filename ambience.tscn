@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://boilqu2na0be1"]
+
+[ext_resource type="AudioStream" uid="uid://meyic7m2plye" path="res://Sounds/sfx/forest_ambience.mp3" id="1_h020k"]
+[ext_resource type="AudioStream" uid="uid://dask0ypatucq6" path="res://Sounds/Music/lumina.mp3" id="2_5iikw"]
+[ext_resource type="AudioStream" uid="uid://bvs7l6d63xqvd" path="res://Sounds/sfx/daggerhit.mp3" id="3_ujdfh"]
+[ext_resource type="AudioStream" uid="uid://eef7adlj6v45" path="res://Sounds/sfx/gameover.mp3" id="4_tqt0y"]
+
+[node name="Ambience" type="Node"]
+
+[node name="ambience" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_h020k")
+volume_db = -10.0
+autoplay = true
+
+[node name="music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_5iikw")
+volume_db = -25.0
+
+[node name="daggerhit" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_ujdfh")
+volume_db = -5.0
+
+[node name="gameover" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_tqt0y")
+volume_db = -15.0
