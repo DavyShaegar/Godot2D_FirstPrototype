@@ -4,16 +4,20 @@ extends CharacterBody2D
 
 @export_category("Player Stats")
 @export var health: int = 100
-@export var speed: int = 200
-@export var jump_speed: int = -350
+@export var speed: int = 250
+@export var melee_damage: int = 5
+@export var acceleration: int = 200
+@export var deceleration: int = 600
+@export var jump_speed: int = -400
 @export var throw_cooldown: float = 1.0
 @export var throwing: bool = false
 
 @export_category("Player Nodes")
 @export var sprite: AnimatedSprite2D
-@export var cast: RayCast2D
+@export var areaof_melee_attack: Area2D
 @export var health_counter: RichTextLabel
 @export var score_counter: RichTextLabel
+@export var death_screen: Control
 
 @export_category("Player Audio")
 @export var sword_swing: AudioStreamPlayer2D
@@ -23,7 +27,6 @@ extends CharacterBody2D
 
 
 @export_category("Instances")
-#@export var death_screen: PackedScene = load("res://Scenes/ui/deathscreen.tscn")
 @export var dagger: PackedScene = load("res://Scenes/Projectiles/dagger_projectile.tscn")
 
 
@@ -48,6 +51,10 @@ func set_state(new_state: States) -> void:
 	if current_state == new_state:
 		return
 	
+	# if char is dead, return
+	if current_state == 4:
+		return
+		
 	# if new state is death, change it and return
 	# player can die anytime, disregarding state changing logic
 	if new_state == 4:
@@ -74,10 +81,10 @@ func _animate() -> void:
 func _flip_character(axis: float) -> void:
 	if axis < 0:
 		sprite.flip_h = true
-		cast.scale.x = -1
+		areaof_melee_attack.position.x = -18
 	else:
 		sprite.flip_h = false 
-		cast.scale.x = 1
+		areaof_melee_attack.position.x = 18
 
 
 # Handles melee attack
@@ -97,7 +104,7 @@ func _throw_dagger() -> void:
 	# this 'cause dagger is instantiated in a basic node with no position inheritance
 	# so that the dagger won't follow the player after being thrown 
 	in_dagger.position = global_position + Vector2(0, -25)
-	
+	in_dagger.throw(get_global_mouse_position())
 	%Projectiles.add_child(in_dagger)
 	
 	# 1 second cooldown
@@ -107,7 +114,9 @@ func _throw_dagger() -> void:
 
 # Handles death
 func _death() -> void:
-	get_tree().quit(0)
+	health_counter.visible = false
+	score_counter.visible = false
+	death_screen.visible = true
 	
 	
 ## Handles movement
@@ -127,17 +136,16 @@ func _movement(delta: float) -> void:
 	var axis: float = Input.get_axis("left", "right")
 	if axis:
 		
-		# remove sliding when changing direction
-		if velocity.x < 0 and axis > 0:
-			print("change to the right")
-		elif velocity.x > 0 and axis < 0:
-			print("Change to the left")
-			
 		set_state(States.run)
 		_flip_character(axis)
-		velocity.x = move_toward(velocity.x, speed * axis, speed * delta)
+		
+		# Reduce sliding when changing direction but keep acceleration time
+		if velocity.x < 0 and axis > 0 or velocity.x > 0 and axis < 0:
+			velocity.x = move_toward(velocity.x, 0, deceleration * delta)
+			
+		velocity.x = move_toward(velocity.x, speed * axis, acceleration * delta)
 	else: # When no movement key is pressed
-		velocity.x = move_toward(velocity.x, 0, speed * delta * 10)
+		velocity.x = move_toward(velocity.x, 0, deceleration * delta)
 		if velocity.x == 0: # When char is stopped
 			set_state(States.idle)
 		
@@ -150,22 +158,35 @@ func update_ui() -> void:
 	score_counter.text = "Score: 0"
 
 
+func check_death() -> bool:
+	if health <= 0:
+		set_state(States.death)
+		return true
+	else:
+		return false
+
+
 func _ready() -> void:
 	update_ui()
 
 
 func _physics_process(delta: float) -> void:
-	## REMOVE
-	if health == 0:
-		set_state(States.death)
-		
+	if current_state == States.death:
+		return
+	check_death()
+	update_ui()
 	_movement(delta)
+	
+	if Input.is_action_just_pressed("pause"):
+		%Pause.visible = true
+		get_tree().paused = true
 	
 	if Input.is_action_just_pressed("attack") and is_on_floor():
 		_attack()
 
 	if Input.is_action_just_pressed("throw") and throwing == false:
 		_throw_dagger()
+
 
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if sprite.animation == "attack":
@@ -188,3 +209,14 @@ func _on_animated_sprite_2d_frame_changed() -> void:
 		if sprite.frame == 1 or sprite.frame == 5:
 			steps.stream = steps_audio_pool.pick_random()
 			steps.play()
+			
+	elif sprite.animation == "attack": # Melee attack
+		if sprite.frame == 3:
+			var overlapping_bodies: Array[Node2D] = areaof_melee_attack.get_overlapping_bodies()
+			if overlapping_bodies == []:
+				return
+			
+			# All enemies in range are affected
+			for body in overlapping_bodies:
+				body.got_hit(melee_damage)
+			

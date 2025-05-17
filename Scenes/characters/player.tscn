@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://doi31417catiw"]
+[gd_scene load_steps=57 format=3 uid="uid://doi31417catiw"]
 
 [ext_resource type="Script" uid="uid://cnbua2lihqwcj" path="res://Scenes/characters/player.gd" id="1_0r5da"]
 [ext_resource type="Texture2D" uid="uid://bx2y4ryk3erxr" path="res://Graphics/Character/char_blue.png" id="1_kvnrr"]
@@ -6,7 +6,9 @@
 [ext_resource type="AudioStream" uid="uid://bmuw2lfvbkvoa" path="res://Sounds/sfx/footstep_1.mp3" id="3_twm3q"]
 [ext_resource type="AudioStream" uid="uid://c2htxkp5tcuhl" path="res://Sounds/sfx/playerdeathsound.mp3" id="5_8liwr"]
 [ext_resource type="AudioStream" uid="uid://b7mus8bv64fiw" path="res://Sounds/sfx/daggerthrow.mp3" id="6_0r5da"]
-[ext_resource type="FontFile" uid="uid://dc433a8kg2auu" path="res://Graphics/Fonts/vinque rg.otf" id="7_twm3q"]
+[ext_resource type="Theme" uid="uid://day1x4io7q8lu" path="res://Graphics/Styles/menufont.tres" id="7_8liwr"]
+[ext_resource type="PackedScene" uid="uid://dddwa1pej1urq" path="res://Scenes/ui/deathscreen.tscn" id="8_fgiwp"]
+[ext_resource type="PackedScene" uid="uid://pg057bch15x8" path="res://Scenes/ui/pause.tscn" id="9_8liwr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x07ju"]
 size = Vector2(16, 50)
@@ -347,19 +349,29 @@ animations = [{
 "speed": 8.0
 }]
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "cast", "health_counter", "score_counter", "sword_swing", "steps", "death")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8liwr"]
+size = Vector2(20, 22)
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "areaof_melee_attack", "health_counter", "score_counter", "death_screen", "sword_swing", "steps", "dagger_sound", "death")]
+scale = Vector2(2, 2)
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_0r5da")
 sprite = NodePath("AnimatedSprite2D")
-cast = NodePath("RayCast2D")
+areaof_melee_attack = NodePath("AreaofMeleeAttack")
 health_counter = NodePath("UI/HealthCounter")
 score_counter = NodePath("UI/ScoreCounter")
+death_screen = NodePath("UI/Deathscreen")
 sword_swing = NodePath("Audio/swing")
 steps = NodePath("Audio/footstep")
+dagger_sound = NodePath("Audio/deathsound")
 death = NodePath("Audio/deathsound")
 dagger = Object(AudioStreamPlayer2D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"position":Vector2(0, 0),"rotation":0.0,"scale":Vector2(1, 1),"skew":0.0,"stream":ExtResource("6_0r5da"),"volume_db":0.0,"pitch_scale":1.0,"autoplay":false,"stream_paused":false,"max_distance":2000.0,"attenuation":1.0,"max_polyphony":1,"panning_strength":1.0,"bus":&"Master","area_mask":1,"playback_type":0,"script":null)
 
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -28)
+zoom = Vector2(1.75, 1.75)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 light_mask = 2
@@ -373,14 +385,18 @@ metadata/_edit_lock_ = true
 position = Vector2(0, -14)
 scale = Vector2(1.08929, 1.09694)
 sprite_frames = SubResource("SpriteFrames_uubgo")
-animation = &"idle"
+animation = &"attack"
 speed_scale = 1.5
 metadata/_edit_lock_ = true
 
-[node name="RayCast2D" type="RayCast2D" parent="."]
-target_position = Vector2(32, 0)
+[node name="AreaofMeleeAttack" type="Area2D" parent="."]
+position = Vector2(18, 0)
+collision_layer = 0
 collision_mask = 4
-metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="AreaofMeleeAttack"]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_8liwr")
 
 [node name="cooldown" type="Timer" parent="."]
 
@@ -388,59 +404,71 @@ metadata/_edit_lock_ = true
 
 [node name="swing" type="AudioStreamPlayer2D" parent="Audio"]
 stream = ExtResource("2_0r5da")
+max_polyphony = 10
+bus = &"SFX"
 
 [node name="footstep" type="AudioStreamPlayer2D" parent="Audio"]
 stream = ExtResource("3_twm3q")
 volume_db = -5.0
+bus = &"SFX"
 
 [node name="deathsound" type="AudioStreamPlayer2D" parent="Audio"]
 stream = ExtResource("5_8liwr")
 volume_db = -5.0
+bus = &"SFX"
 
 [node name="daggerthrow" type="AudioStreamPlayer2D" parent="Audio"]
 stream = ExtResource("6_0r5da")
+bus = &"SFX"
 
 [node name="UI" type="CanvasLayer" parent="."]
-layer = 2
-follow_viewport_enabled = true
+unique_name_in_owner = true
+process_mode = 3
 
 [node name="HealthCounter" type="RichTextLabel" parent="UI"]
-offset_left = -160.0
-offset_top = -216.0
-offset_right = 16.0
-offset_bottom = -168.0
+unique_name_in_owner = true
+offset_left = 31.0
+offset_top = 17.0
+offset_right = 673.0
+offset_bottom = 172.0
 scale = Vector2(0.5, 0.5)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_y = 1
-theme_override_constants/shadow_offset_x = 1
-theme_override_fonts/normal_font = ExtResource("7_twm3q")
-theme_override_font_sizes/normal_font_size = 32
+theme = ExtResource("7_8liwr")
 text = "Health: 20"
-scroll_active = false
+fit_content = true
 
 [node name="ScoreCounter" type="RichTextLabel" parent="UI"]
+unique_name_in_owner = true
 anchors_preset = -1
 anchor_left = 0.035
 anchor_top = -0.311111
-anchor_right = 0.269125
-anchor_bottom = -0.244778
-offset_left = 99.2
-offset_top = 7.99992
-offset_right = 98.72
-offset_bottom = 8.23993
+anchor_right = 0.335375
+anchor_bottom = -0.203111
+offset_left = 907.2
+offset_top = 241.0
+offset_right = 1130.72
+offset_bottom = 318.24
 scale = Vector2(0.5, 0.5)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_y = 1
-theme_override_constants/shadow_offset_x = 1
-theme_override_constants/shadow_outline_size = 0
-theme_override_constants/line_separation = 0
-theme_override_fonts/normal_font = ExtResource("7_twm3q")
-theme_override_font_sizes/normal_font_size = 32
+theme = ExtResource("7_8liwr")
 text = "Score: 0"
+fit_content = true
 scroll_active = false
-metadata/_edit_use_anchors_ = true
+
+[node name="Deathscreen" parent="UI" instance=ExtResource("8_fgiwp")]
+unique_name_in_owner = true
+visible = false
+
+[node name="Pause" parent="UI" instance=ExtResource("9_8liwr")]
+unique_name_in_owner = true
+process_mode = 0
+visible = false
+offset_left = -144.0
+offset_top = -88.0
+offset_right = 164.0
+offset_bottom = 88.0
 
 [node name="Projectiles" type="Node" parent="."]
 unique_name_in_owner = true
 
+[connection signal="animation_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_changed"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]

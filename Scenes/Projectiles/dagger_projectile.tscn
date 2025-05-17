@@ -4,20 +4,29 @@
 [ext_resource type="Texture2D" uid="uid://cwlpat1thb6sr" path="res://Graphics/Character/dagger.png" id="2_sj423"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_a7pqa"]
+radius = 8.0
+height = 48.0
 
 [node name="DaggerProjectile" type="Area2D"]
+collision_layer = 8
+collision_mask = 5
 script = ExtResource("1_1tvc6")
-speed = null
-damage = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 light_mask = 16
 visibility_layer = 16
+rotation = 1.5708
 shape = SubResource("CapsuleShape2D_a7pqa")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-2, 0)
-rotation = -0.785398
+position = Vector2(0, -4)
+rotation = 0.785398
+scale = Vector2(2, 2)
 texture = ExtResource("2_sj423")
 
+[node name="TimeToLive" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="TimeToLive" to="." method="_on_time_to_live_timeout"]

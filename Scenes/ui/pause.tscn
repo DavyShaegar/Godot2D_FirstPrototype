@@ -1,0 +1,63 @@
+[gd_scene load_steps=3 format=3 uid="uid://pg057bch15x8"]
+
+[ext_resource type="Theme" uid="uid://day1x4io7q8lu" path="res://Graphics/Styles/menufont.tres" id="1_1nmbt"]
+[ext_resource type="Script" uid="uid://dtxml0ix458i6" path="res://Scenes/ui/pause.gd" id="2_1nmbt"]
+
+[node name="Pause" type="MarginContainer"]
+process_mode = 2
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -154.0
+offset_top = -96.0
+offset_right = 154.0
+offset_bottom = 96.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_1nmbt")
+script = ExtResource("2_1nmbt")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Game Paused"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="ExitToMenu" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Exit To Menu"
+
+[node name="ExitToDesk" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Exit To Desktop"
+
+[node name="Resume" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Resume"
+
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/ExitToMenu" to="." method="_on_exit_to_menu_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/ExitToDesk" to="." method="_on_exit_to_desk_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]

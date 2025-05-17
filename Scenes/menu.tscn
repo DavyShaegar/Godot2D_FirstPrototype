@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=4 uid="uid://brl0yxw3ljydo"]
+[gd_scene load_steps=28 format=4 uid="uid://brl0yxw3ljydo"]
 
 [ext_resource type="Script" uid="uid://xscve5j3lh33" path="res://Scenes/menu.gd" id="1_q3rjx"]
 [ext_resource type="Texture2D" uid="uid://bkgsoit6tdiwg" path="res://Graphics/Background/background_layer_1.png" id="2_tbm5y"]
@@ -7,13 +7,25 @@
 [ext_resource type="FontFile" uid="uid://dc433a8kg2auu" path="res://Graphics/Fonts/vinque rg.otf" id="3_hop8j"]
 [ext_resource type="Texture2D" uid="uid://bd1i3v633i6lf" path="res://Graphics/Background/background_layer_3.png" id="4_7qvly"]
 [ext_resource type="Texture2D" uid="uid://d0q48sijtxe0f" path="res://Graphics/Tileset/oak_woods_tileset.png" id="5_7qvly"]
+[ext_resource type="PackedScene" uid="uid://cnfeejq8nqild" path="res://Scenes/ui/optionsmenu.tscn" id="6_g8i7c"]
 [ext_resource type="StyleBox" uid="uid://clyji6tb6te4c" path="res://Graphics/Styles/menu_normal.tres" id="6_hxhp4"]
 [ext_resource type="StyleBox" uid="uid://cnjp6cclogl82" path="res://Graphics/Styles/menu_hover.tres" id="7_t7pi8"]
 [ext_resource type="StyleBox" uid="uid://bg5mywnmh2sbb" path="res://Graphics/Styles/menu_pressed.tres" id="8_eoome"]
 [ext_resource type="AudioStream" uid="uid://meyic7m2plye" path="res://Sounds/sfx/forest_ambience.mp3" id="11_rfqti"]
+[ext_resource type="AudioStream" uid="uid://h2p202wqwc31" path="res://Sounds/sfx/UI_click.mp3" id="13_23t3j"]
+[ext_resource type="AudioStream" uid="uid://dask0ypatucq6" path="res://Sounds/Music/lumina.mp3" id="14_8ph6h"]
 
 [sub_resource type="Theme" id="Theme_wbdvm"]
-default_font_size = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lsjoj"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+bg_color = Color(0, 0, 0, 0.486275)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+expand_margin_bottom = 2.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rfqti"]
 texture = ExtResource("5_7qvly")
@@ -517,16 +529,6 @@ animations = [{
 "speed": 7.0
 }]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lsjoj"]
-content_margin_left = 10.0
-content_margin_right = 10.0
-bg_color = Color(0, 0, 0, 0.486275)
-corner_radius_top_left = 50
-corner_radius_top_right = 50
-corner_radius_bottom_right = 50
-corner_radius_bottom_left = 50
-expand_margin_bottom = 2.0
-
 [node name="mainmenu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -538,8 +540,128 @@ theme = SubResource("Theme_wbdvm")
 script = ExtResource("1_q3rjx")
 
 [node name="Decoration" type="Control" parent="."]
-anchors_preset = 0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Decoration"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Decoration/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 48
+
+[node name="title" type="Label" parent="Decoration/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/shadow_outline_size = 10
+theme_override_fonts/font = ExtResource("3_hop8j")
+theme_override_font_sizes/font_size = 128
+text = "Skeleton Forest"
+horizontal_alignment = 1
+vertical_alignment = 3
+
+[node name="MenuContainer" type="VBoxContainer" parent="Decoration/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="score" type="PanelContainer" parent="Decoration/MarginContainer/VBoxContainer/MenuContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_lsjoj")
+
+[node name="highscore" type="Label" parent="Decoration/MarginContainer/VBoxContainer/MenuContainer/score"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 50
+text = "High Score: 0"
+
+[node name="ButtonContainer" type="VBoxContainer" parent="Decoration/MarginContainer/VBoxContainer/MenuContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="Start" type="Button" parent="Decoration/MarginContainer/VBoxContainer/MenuContainer/ButtonContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_vertical = 4
+theme = SubResource("Theme_wbdvm")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/hover = ExtResource("7_t7pi8")
+theme_override_styles/pressed = ExtResource("8_eoome")
+theme_override_styles/normal = ExtResource("6_hxhp4")
+text = "Start"
+
+[node name="Options" type="Button" parent="Decoration/MarginContainer/VBoxContainer/MenuContainer/ButtonContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 48
+theme_override_styles/hover = ExtResource("7_t7pi8")
+theme_override_styles/pressed = ExtResource("8_eoome")
+theme_override_styles/normal = ExtResource("6_hxhp4")
+text = "Options"
+
+[node name="Exit" type="Button" parent="Decoration/MarginContainer/VBoxContainer/MenuContainer/ButtonContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 48
+theme_override_styles/hover = ExtResource("7_t7pi8")
+theme_override_styles/pressed = ExtResource("8_eoome")
+theme_override_styles/normal = ExtResource("6_hxhp4")
+text = "Exit"
+
+[node name="optionsmenu" parent="Decoration" node_paths=PackedStringArray("menu_click") instance=ExtResource("6_g8i7c")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 640.0
+offset_top = 416.0
+offset_right = 640.0
+offset_bottom = 416.0
+menu_click = NodePath("../../Audio/MenuClick")
+
+[node name="name" type="Label" parent="Decoration"]
+layout_mode = 2
+offset_left = 24.0
+offset_top = 648.0
+offset_right = 1264.0
+offset_bottom = 688.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/shadow_outline_size = 10
+theme_override_fonts/font = ExtResource("3_hop8j")
+theme_override_font_sizes/font_size = 32
+text = "Made By: Davy Shaegar"
+horizontal_alignment = 2
+vertical_alignment = 1
 
 [node name="Screen" type="CanvasModulate" parent="Decoration"]
 unique_name_in_owner = true
@@ -603,91 +725,6 @@ autoplay = "default"
 frame_progress = 0.528425
 flip_h = true
 
-[node name="MarginContainer" type="MarginContainer" parent="Decoration"]
-layout_mode = 0
-offset_right = 640.0
-offset_bottom = 360.0
-scale = Vector2(2, 2)
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Decoration/MarginContainer"]
-layout_mode = 2
-theme_override_constants/separation = 25
-
-[node name="title" type="Label" parent="Decoration/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 1
-theme_override_constants/shadow_offset_y = 2
-theme_override_constants/shadow_outline_size = 10
-theme_override_fonts/font = ExtResource("3_hop8j")
-theme_override_font_sizes/font_size = 50
-text = "Skeleton Forest"
-horizontal_alignment = 1
-vertical_alignment = 3
-
-[node name="score" type="PanelContainer" parent="Decoration/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_styles/panel = SubResource("StyleBoxFlat_lsjoj")
-
-[node name="highscore" type="Label" parent="Decoration/MarginContainer/VBoxContainer/score"]
-layout_mode = 2
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 1
-theme_override_constants/shadow_offset_y = 1
-theme_override_font_sizes/font_size = 24
-text = "High Score: 0"
-
-[node name="ButtonContainer" type="VBoxContainer" parent="Decoration/MarginContainer/VBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(150, 0)
-layout_mode = 2
-size_flags_horizontal = 4
-alignment = 1
-
-[node name="Start" type="Button" parent="Decoration/MarginContainer/VBoxContainer/ButtonContainer"]
-layout_mode = 2
-size_flags_vertical = 4
-theme_override_font_sizes/font_size = 24
-theme_override_styles/hover = ExtResource("7_t7pi8")
-theme_override_styles/pressed = ExtResource("8_eoome")
-theme_override_styles/normal = ExtResource("6_hxhp4")
-text = "Start"
-
-[node name="Options" type="Button" parent="Decoration/MarginContainer/VBoxContainer/ButtonContainer"]
-layout_mode = 2
-size_flags_vertical = 4
-theme_override_font_sizes/font_size = 24
-theme_override_styles/hover = ExtResource("7_t7pi8")
-theme_override_styles/pressed = ExtResource("8_eoome")
-theme_override_styles/normal = ExtResource("6_hxhp4")
-text = "Options"
-
-[node name="Exit" type="Button" parent="Decoration/MarginContainer/VBoxContainer/ButtonContainer"]
-layout_mode = 2
-size_flags_vertical = 4
-theme_override_font_sizes/font_size = 24
-theme_override_styles/hover = ExtResource("7_t7pi8")
-theme_override_styles/pressed = ExtResource("8_eoome")
-theme_override_styles/normal = ExtResource("6_hxhp4")
-text = "Exit"
-
-[node name="name" type="Label" parent="Decoration/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 1
-theme_override_constants/shadow_offset_y = 2
-theme_override_constants/shadow_outline_size = 10
-theme_override_fonts/font = ExtResource("3_hop8j")
-theme_override_font_sizes/font_size = 24
-text = "Made By: Davy Shaegar"
-horizontal_alignment = 2
-vertical_alignment = 1
-
 [node name="Audio" type="Node2D" parent="."]
 
 [node name="Ambience" type="AudioStreamPlayer2D" parent="Audio"]
@@ -697,6 +734,22 @@ autoplay = true
 bus = &"Ambience"
 parameters/looping = true
 
-[connection signal="pressed" from="Decoration/MarginContainer/VBoxContainer/ButtonContainer/Start" to="." method="_on_start_pressed"]
-[connection signal="pressed" from="Decoration/MarginContainer/VBoxContainer/ButtonContainer/Options" to="." method="_on_options_pressed"]
-[connection signal="pressed" from="Decoration/MarginContainer/VBoxContainer/ButtonContainer/Exit" to="." method="_on_exit_pressed"]
+[node name="MenuClick" type="AudioStreamPlayer2D" parent="Audio"]
+unique_name_in_owner = true
+stream = ExtResource("13_23t3j")
+bus = &"SFX"
+
+[node name="Music" type="AudioStreamPlayer2D" parent="Audio"]
+unique_name_in_owner = true
+stream = ExtResource("14_8ph6h")
+volume_db = -10.0
+autoplay = true
+bus = &"Music"
+parameters/looping = true
+
+[connection signal="pressed" from="Decoration/MarginContainer/VBoxContainer/MenuContainer/ButtonContainer/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="Decoration/MarginContainer/VBoxContainer/MenuContainer/ButtonContainer/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="Decoration/MarginContainer/VBoxContainer/MenuContainer/ButtonContainer/Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="Decoration/optionsmenu/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/Back" to="." method="_on_back_pressed"]
+
+[editable path="Decoration/optionsmenu"]

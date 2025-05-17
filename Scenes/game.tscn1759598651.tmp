@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://8pydml2bwyrj"]
+[gd_scene load_steps=20 format=4 uid="uid://8pydml2bwyrj"]
 
 [ext_resource type="Texture2D" uid="uid://bkgsoit6tdiwg" path="res://Graphics/Background/background_layer_1.png" id="1_3esh5"]
 [ext_resource type="Texture2D" uid="uid://d0q48sijtxe0f" path="res://Graphics/Tileset/oak_woods_tileset.png" id="1_8h5qi"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://d3c26eikcr3db" path="res://Graphics/Decoration/fence_1.png" id="7_52o6v"]
 [ext_resource type="PackedScene" uid="uid://doi31417catiw" path="res://Scenes/characters/player.tscn" id="12_gwne5"]
 [ext_resource type="PackedScene" uid="uid://b072yp7vg0pq5" path="res://Scenes/Projectiles/dagger_projectile.tscn" id="12_rku1e"]
+[ext_resource type="PackedScene" uid="uid://c4147u1xcahg2" path="res://Scenes/characters/enemy_skeleton.tscn" id="13_rfjv2"]
 [ext_resource type="Texture2D" uid="uid://cyw5aadl8yrgg" path="res://Graphics/Decoration/grass_2.png" id="14_b0p6w"]
 [ext_resource type="Texture2D" uid="uid://30x8fdfspqux" path="res://Graphics/Decoration/rock_1.png" id="15_3m2qc"]
 [ext_resource type="Texture2D" uid="uid://dtf0w81karlcv" path="res://Graphics/Decoration/fence_2.png" id="16_5a080"]
@@ -460,7 +461,17 @@ normal = Vector2(-1, 0)
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_rfjv2"]
 normal = Vector2(0, 1)
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_rfjv2"]
+vertices = PackedVector2Array(270, 22, -190, 22, -190, -230.156, 270, -237.828)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-200, -240, -200, 32, 280, 32, 280, -248)])
+
 [node name="MainGame" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(40, -104)
+zoom = Vector2(3, 3)
+metadata/_edit_lock_ = true
 
 [node name="Decoration" type="Node2D" parent="."]
 
@@ -484,6 +495,7 @@ position = Vector2(-136, -8)
 texture = ExtResource("7_52o6v")
 
 [node name="Player" parent="." node_paths=PackedStringArray("dagger_sound") instance=ExtResource("12_gwne5")]
+unique_name_in_owner = true
 position = Vector2(0, -17)
 dagger_sound = NodePath("Audio/daggerthrow")
 dagger = ExtResource("12_rku1e")
@@ -554,10 +566,11 @@ position = Vector2(256, -239)
 [node name="spawnpointupleft" type="Marker2D" parent="SpawnPoints"]
 position = Vector2(-176, -239)
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(40, -104)
-zoom = Vector2(3, 3)
-metadata/_edit_lock_ = true
+[node name="node_skeleton" parent="." instance=ExtResource("13_rfjv2")]
+position = Vector2(200, -24)
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_rfjv2")
 
 [connection signal="animation_changed" from="Player/AnimatedSprite2D" to="Player" method="_on_animated_sprite_2d_animation_changed"]
 [connection signal="frame_changed" from="Player/AnimatedSprite2D" to="Player" method="_on_animated_sprite_2d_frame_changed"]
