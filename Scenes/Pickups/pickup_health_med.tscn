@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://dcxsn2txvdc08"]
+
+[ext_resource type="Script" uid="uid://rk43bx2yiue2" path="res://Scenes/Pickups/pickup_base.gd" id="1_35bsa"]
+[ext_resource type="PackedScene" uid="uid://dcaxtrq4s18q8" path="res://Scenes/Particles/base_pickup_particle.tscn" id="2_n3gqn"]
+[ext_resource type="Texture2D" uid="uid://dshnf78ah5bx4" path="res://Graphics/Items/Heart.png" id="3_qo1by"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4aygq"]
+size = Vector2(32, 32)
+
+[node name="PickupHealthMed" type="Area2D"]
+collision_layer = 32
+collision_mask = 2
+script = ExtResource("1_35bsa")
+is_active = true
+pickup_type = 1
+pickup_value = 10
+metadata/_custom_type_script = "uid://rk43bx2yiue2"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_4aygq")
+
+[node name="BasePickupParticle" parent="." instance=ExtResource("2_n3gqn")]
+
+[node name="Heart" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_qo1by")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

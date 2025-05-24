@@ -51,7 +51,7 @@ func _on_start_pressed() -> void:
 	GlobalHandler.fade_out(%ParallaxScreen, 1.0)
 	await get_tree().create_timer(1.2).timeout
 	
-	get_tree().change_scene_to_file("res://Scenes/Level01.tscn")
+	get_tree().change_scene_to_file("res://Scenes/Levels/Level01.tscn")
 
 
 func _on_options_pressed() -> void:

@@ -7,6 +7,7 @@ extends CharacterBody2D
 
 @export_category("Enemy Stats")
 @export var health: int
+@export var max_health: int
 @export var damage: int
 @export var speed: int
 
@@ -60,11 +61,11 @@ func set_target(target_position: Vector2) -> void:
 
 
 func _navigate(delta: float) -> void:
-	if nav.is_navigation_finished():
-		set_state(States.idle)
-		return
-	elif raycast.is_colliding():
+	if raycast.is_colliding(): # Attack
 		set_state(States.attack)
+		return
+	elif nav.is_navigation_finished(): # Not pursuing anything
+		set_state(States.idle)
 		return
 
 	set_state(States.run)
@@ -83,6 +84,7 @@ func _navigate(delta: float) -> void:
 func _check_surroundings() -> void:
 	for object in los.get_overlapping_bodies():
 		if object is Player:
+				
 			entity_target = object
 			is_aggro = true
 			is_patrolling = false
@@ -106,7 +108,7 @@ func got_hit(incoming_damage: int) -> void:
 		
 	set_state(States.hit)
 	health -= incoming_damage
-	## add floating damage here
+	GlobalHandler.show_floating_damage(self, incoming_damage)
 	
 	
 # Animates the enemy based on the current state

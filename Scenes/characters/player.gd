@@ -4,19 +4,20 @@ extends CharacterBody2D
 
 @export_category("Player Stats")
 @export var health: int = 100
+@export var max_health: int = health
 @export var speed: int = 250
 @export var melee_damage: int = 5
 @export var acceleration: int = 200
 @export var deceleration: int = 600
-@export var jump_speed: int = -400
+@export var jump_speed: int = -450
 @export var throw_cooldown: float = 1.0
 @export var throwing: bool = false
 
 @export_category("Player Nodes")
 @export var sprite: AnimatedSprite2D
 @export var areaof_melee_attack: Area2D
-@export var health_counter: RichTextLabel
-@export var score_counter: RichTextLabel
+@export var player_panel: PanelContainer
+@export var health_counter: ProgressBar
 @export var death_screen: Control
 
 @export_category("Player Audio")
@@ -74,6 +75,10 @@ func set_state(new_state: States) -> void:
 	
 ## Animates the character based on the current state
 func _animate() -> void:
+	# Do not change animation if entity is dying
+	if sprite.animation == "death":
+		return
+	
 	sprite.play(States.find_key(current_state))
 
 
@@ -91,6 +96,17 @@ func _flip_character(axis: float) -> void:
 func _attack() -> void:
 	set_state(States.attack)
 	attacking = true
+
+
+# Handles getting hit by... anything
+func got_hit(incoming_damage: int) -> void:
+	# Set the entity to death if no more health
+	if health <= 0:
+		set_state(States.death)
+		return
+		
+	health -= incoming_damage
+	GlobalHandler.show_floating_damage(self, incoming_damage)
 
 
 # Handles dagger throwing (to hit enemies above)
@@ -114,8 +130,12 @@ func _throw_dagger() -> void:
 
 # Handles death
 func _death() -> void:
-	health_counter.visible = false
-	score_counter.visible = false
+	
+	# Disables collision so that other entities can't interact with the dead body
+	%CollisionShape2D.disabled = true
+	
+	# Hides HUD and shows death screen
+	player_panel.visible = false
 	death_screen.visible = true
 	
 	
@@ -154,8 +174,7 @@ func _movement(delta: float) -> void:
 
 # Fire this function whenever ui needs to update its values
 func update_ui() -> void:
-	health_counter.text = "Health: " + str(health)
-	score_counter.text = "Score: 0"
+	health_counter.value = health
 
 
 func check_death() -> bool:
@@ -171,10 +190,12 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if current_state == States.death:
-		return
-	check_death()
 	update_ui()
+	if current_state == States.death:
+		_animate()
+		return
+		
+	check_death()
 	_movement(delta)
 	
 	if Input.is_action_just_pressed("pause"):

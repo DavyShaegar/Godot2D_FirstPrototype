@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dddwa1pej1urq"]
 
 [ext_resource type="Theme" uid="uid://day1x4io7q8lu" path="res://Graphics/Styles/menufont.tres" id="1_ccuy4"]
-[ext_resource type="Script" uid="uid://dlp0cwitlrpwq" path="res://Scenes/ui/deathscreen.gd" id="2_nqsu6"]
+[ext_resource type="Script" uid="uid://dlp0cwitlrpwq" path="res://Scenes/ui/menus and screens/deathscreen.gd" id="2_nqsu6"]
 [ext_resource type="StyleBox" uid="uid://clyji6tb6te4c" path="res://Graphics/Styles/menu_normal.tres" id="2_sqg4r"]
 [ext_resource type="Texture2D" uid="uid://cse7bqvspevds" path="res://Graphics/Asset 12.png" id="3_uuden"]
 

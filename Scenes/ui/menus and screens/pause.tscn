@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://pg057bch15x8"]
 
 [ext_resource type="Theme" uid="uid://day1x4io7q8lu" path="res://Graphics/Styles/menufont.tres" id="1_1nmbt"]
-[ext_resource type="Script" uid="uid://dtxml0ix458i6" path="res://Scenes/ui/pause.gd" id="2_1nmbt"]
+[ext_resource type="Script" uid="uid://dtxml0ix458i6" path="res://Scenes/ui/menus and screens/pause.gd" id="2_1nmbt"]
 
 [node name="Pause" type="MarginContainer"]
 process_mode = 2

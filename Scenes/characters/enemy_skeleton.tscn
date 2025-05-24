@@ -218,6 +218,7 @@ collision_layer = 4
 collision_mask = 13
 script = ExtResource("1_yopxb")
 health = 20
+max_health = 20
 damage = 5
 speed = 60
 sprite = NodePath("AnimatedSprite2D")
@@ -240,9 +241,9 @@ scale = Vector2(0.8, 1)
 shape = SubResource("RectangleShape2D_br0ww")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
-scale = Vector2(0.9, 1)
 target_position = Vector2(40, 0)
 collision_mask = 2
+hit_from_inside = true
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 debug_enabled = true
@@ -265,6 +266,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LosArea"]
+position = Vector2(4, 0)
 shape = SubResource("CircleShape2D_yopxb")
 debug_color = Color(0, 0.6, 0.701961, 0)
 

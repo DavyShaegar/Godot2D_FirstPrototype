@@ -33,7 +33,7 @@ func _on_animated_sprite_2d_frame_changed() -> void:
 		if sprite.frame == 6:
 			if raycast.get_collider() != null:
 				_play_randomise_pitch(%skel_hit)
-				#raycast.get_collider().got_hit(damage)
+				raycast.get_collider().got_hit(damage)
 
 
 # Sounds sync

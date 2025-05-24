@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://doi31417catiw"]
+[gd_scene load_steps=60 format=3 uid="uid://doi31417catiw"]
 
 [ext_resource type="Script" uid="uid://cnbua2lihqwcj" path="res://Scenes/characters/player.gd" id="1_0r5da"]
 [ext_resource type="Texture2D" uid="uid://bx2y4ryk3erxr" path="res://Graphics/Character/char_blue.png" id="1_kvnrr"]
@@ -6,36 +6,33 @@
 [ext_resource type="AudioStream" uid="uid://bmuw2lfvbkvoa" path="res://Sounds/sfx/footstep_1.mp3" id="3_twm3q"]
 [ext_resource type="AudioStream" uid="uid://c2htxkp5tcuhl" path="res://Sounds/sfx/playerdeathsound.mp3" id="5_8liwr"]
 [ext_resource type="AudioStream" uid="uid://b7mus8bv64fiw" path="res://Sounds/sfx/daggerthrow.mp3" id="6_0r5da"]
+[ext_resource type="Texture2D" uid="uid://bs6jyh0ejqtr5" path="res://Graphics/Character/char_portrait.png" id="7_5cq8p"]
 [ext_resource type="Theme" uid="uid://day1x4io7q8lu" path="res://Graphics/Styles/menufont.tres" id="7_8liwr"]
-[ext_resource type="PackedScene" uid="uid://dddwa1pej1urq" path="res://Scenes/ui/deathscreen.tscn" id="8_fgiwp"]
-[ext_resource type="PackedScene" uid="uid://pg057bch15x8" path="res://Scenes/ui/pause.tscn" id="9_8liwr"]
+[ext_resource type="PackedScene" uid="uid://dddwa1pej1urq" path="res://Scenes/ui/menus and screens/deathscreen.tscn" id="8_fgiwp"]
+[ext_resource type="PackedScene" uid="uid://pg057bch15x8" path="res://Scenes/ui/menus and screens/pause.tscn" id="9_8liwr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x07ju"]
 size = Vector2(16, 50)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gwn2v"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_8liwr"]
 atlas = ExtResource("1_kvnrr")
 region = Rect2(0, 56, 56, 56)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_kx7cv"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_5cq8p"]
 atlas = ExtResource("1_kvnrr")
 region = Rect2(56, 56, 56, 56)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_fb2t4"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_2si0u"]
 atlas = ExtResource("1_kvnrr")
 region = Rect2(112, 56, 56, 56)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_adk7q"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_2smwd"]
 atlas = ExtResource("1_kvnrr")
 region = Rect2(168, 56, 56, 56)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6v5di"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_gul8o"]
 atlas = ExtResource("1_kvnrr")
 region = Rect2(224, 56, 56, 56)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_rgims"]
-atlas = ExtResource("1_kvnrr")
-region = Rect2(280, 56, 56, 56)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ibcri"]
 atlas = ExtResource("1_kvnrr")
@@ -193,22 +190,19 @@ region = Rect2(392, 112, 56, 56)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_gwn2v")
+"texture": SubResource("AtlasTexture_8liwr")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_kx7cv")
+"texture": SubResource("AtlasTexture_5cq8p")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_fb2t4")
+"texture": SubResource("AtlasTexture_2si0u")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_adk7q")
+"texture": SubResource("AtlasTexture_2smwd")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_6v5di")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_rgims")
+"texture": SubResource("AtlasTexture_gul8o")
 }],
 "loop": false,
 "name": &"attack",
@@ -352,15 +346,40 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8liwr"]
 size = Vector2(20, 22)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "areaof_melee_attack", "health_counter", "score_counter", "death_screen", "sword_swing", "steps", "dagger_sound", "death")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5cq8p"]
+bg_color = Color(0, 0.163227, 0.369075, 0.435294)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0, 0, 0.270588)
+border_blend = true
+corner_radius_top_right = 60
+corner_radius_bottom_right = 60
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2si0u"]
+bg_color = Color(0.0644453, 0.0859752, 0.119366, 0.768627)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2smwd"]
+bg_color = Color(0.141176, 0.352941, 0.156863, 0.905882)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "areaof_melee_attack", "player_panel", "health_counter", "death_screen", "sword_swing", "steps", "dagger_sound", "death")]
 scale = Vector2(2, 2)
 collision_layer = 2
-collision_mask = 5
+collision_mask = 37
 script = ExtResource("1_0r5da")
 sprite = NodePath("AnimatedSprite2D")
 areaof_melee_attack = NodePath("AreaofMeleeAttack")
-health_counter = NodePath("UI/HealthCounter")
-score_counter = NodePath("UI/ScoreCounter")
+player_panel = NodePath("UI/PlayerPanel")
+health_counter = NodePath("UI/PlayerPanel/MarginContainer/HBoxContainer/VBoxContainer/HealthBar")
 death_screen = NodePath("UI/Deathscreen")
 sword_swing = NodePath("Audio/swing")
 steps = NodePath("Audio/footstep")
@@ -374,6 +393,7 @@ position = Vector2(0, -28)
 zoom = Vector2(1.75, 1.75)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+unique_name_in_owner = true
 light_mask = 2
 visibility_layer = 13
 position = Vector2(0, 2)
@@ -385,7 +405,7 @@ metadata/_edit_lock_ = true
 position = Vector2(0, -14)
 scale = Vector2(1.08929, 1.09694)
 sprite_frames = SubResource("SpriteFrames_uubgo")
-animation = &"attack"
+animation = &"run"
 speed_scale = 1.5
 metadata/_edit_lock_ = true
 
@@ -425,33 +445,55 @@ bus = &"SFX"
 unique_name_in_owner = true
 process_mode = 3
 
-[node name="HealthCounter" type="RichTextLabel" parent="UI"]
+[node name="PlayerPanel" type="PanelContainer" parent="UI"]
 unique_name_in_owner = true
-offset_left = 31.0
-offset_top = 17.0
-offset_right = 673.0
-offset_bottom = 172.0
-scale = Vector2(0.5, 0.5)
-theme = ExtResource("7_8liwr")
-text = "Health: 20"
-fit_content = true
+offset_top = 12.0
+offset_right = 448.0
+offset_bottom = 158.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_5cq8p")
 
-[node name="ScoreCounter" type="RichTextLabel" parent="UI"]
-unique_name_in_owner = true
-anchors_preset = -1
-anchor_left = 0.035
-anchor_top = -0.311111
-anchor_right = 0.335375
-anchor_bottom = -0.203111
-offset_left = 907.2
-offset_top = 241.0
-offset_right = 1130.72
-offset_bottom = 318.24
-scale = Vector2(0.5, 0.5)
+[node name="MarginContainer" type="MarginContainer" parent="UI/PlayerPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 12
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/PlayerPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/PlayerPanel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_2si0u")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/PlayerPanel/MarginContainer/HBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/PlayerPanel/MarginContainer/HBoxContainer/PanelContainer/MarginContainer"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+texture = ExtResource("7_5cq8p")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/PlayerPanel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Label" type="Label" parent="UI/PlayerPanel/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
 theme = ExtResource("7_8liwr")
-text = "Score: 0"
-fit_content = true
-scroll_active = false
+theme_override_font_sizes/font_size = 64
+text = "Health"
+horizontal_alignment = 1
+
+[node name="HealthBar" type="ProgressBar" parent="UI/PlayerPanel/MarginContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_2smwd")
+step = 1.0
+value = 50.0
 
 [node name="Deathscreen" parent="UI" instance=ExtResource("8_fgiwp")]
 unique_name_in_owner = true

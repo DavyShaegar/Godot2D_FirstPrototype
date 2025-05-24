@@ -7,7 +7,7 @@
 [ext_resource type="FontFile" uid="uid://dc433a8kg2auu" path="res://Graphics/Fonts/vinque rg.otf" id="3_hop8j"]
 [ext_resource type="Texture2D" uid="uid://bd1i3v633i6lf" path="res://Graphics/Background/background_layer_3.png" id="4_7qvly"]
 [ext_resource type="Texture2D" uid="uid://d0q48sijtxe0f" path="res://Graphics/Tileset/oak_woods_tileset.png" id="5_7qvly"]
-[ext_resource type="PackedScene" uid="uid://cnfeejq8nqild" path="res://Scenes/ui/optionsmenu.tscn" id="6_g8i7c"]
+[ext_resource type="PackedScene" uid="uid://cnfeejq8nqild" path="res://Scenes/ui/menus and screens/optionsmenu.tscn" id="6_g8i7c"]
 [ext_resource type="StyleBox" uid="uid://clyji6tb6te4c" path="res://Graphics/Styles/menu_normal.tres" id="6_hxhp4"]
 [ext_resource type="StyleBox" uid="uid://cnjp6cclogl82" path="res://Graphics/Styles/menu_hover.tres" id="7_t7pi8"]
 [ext_resource type="StyleBox" uid="uid://bg5mywnmh2sbb" path="res://Graphics/Styles/menu_pressed.tres" id="8_eoome"]
