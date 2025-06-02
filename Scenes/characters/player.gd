@@ -19,17 +19,20 @@ extends CharacterBody2D
 @export var player_panel: PanelContainer
 @export var health_counter: ProgressBar
 @export var death_screen: Control
+@export var ranged_weapon_icon: TextureRect
+@export var ranged_weapon_ammo: Label
 
 @export_category("Player Audio")
 @export var sword_swing: AudioStreamPlayer2D
 @export var steps: AudioStreamPlayer2D
 @export var dagger_sound: AudioStreamPlayer2D
 @export var death: AudioStreamPlayer2D
+@export var jumpsound: AudioStreamPlayer2D
 
 
-@export_category("Instances")
-@export var dagger: PackedScene = load("res://Scenes/Projectiles/dagger_projectile.tscn")
-
+@export_category("Throw Weapons")
+@export var dagger: PackedScene
+@export var dagger_count: int
 
 var steps_audio_pool: Array[AudioStreamMP3] = [
 		load("res://Sounds/sfx/footstep_1.mp3"),
@@ -78,7 +81,10 @@ func _animate() -> void:
 	# Do not change animation if entity is dying
 	if sprite.animation == "death":
 		return
-	
+	# If player is falling, don't change animation
+	elif sprite.animation == "falling" and not is_on_floor():
+		return
+		
 	sprite.play(States.find_key(current_state))
 
 
@@ -92,6 +98,20 @@ func _flip_character(axis: float) -> void:
 		areaof_melee_attack.position.x = 18
 
 
+# Sets the ranged weapon
+func change_ranged_weapon(weapon: PackedScene) -> void:
+	# Instatiate to acces vars
+	var in_weapon := weapon.instantiate()
+
+	# Sets vars
+	dagger = weapon
+	dagger_count = in_weapon.def_count
+	ranged_weapon_icon.texture = in_weapon.sprite
+	
+	# Deletes instatiated weapon
+	in_weapon.queue_free()
+	
+	
 # Handles melee attack
 func _attack() -> void:
 	set_state(States.attack)
@@ -111,7 +131,13 @@ func got_hit(incoming_damage: int) -> void:
 
 # Handles dagger throwing (to hit enemies above)
 func _throw_dagger() -> void:
+	# No daggers in inventory
+	if dagger_count < 1:
+		return
+		
 	throwing = true
+	dagger_count -= 1
+	update_ui()
 	
 	dagger_sound.play()
 	var in_dagger := dagger.instantiate()
@@ -136,6 +162,7 @@ func _death() -> void:
 	
 	# Hides HUD and shows death screen
 	player_panel.visible = false
+	%RangedWeaponContainer.visible = false
 	death_screen.visible = true
 	
 	
@@ -149,6 +176,7 @@ func _movement(delta: float) -> void:
 		
 		
 	if Input.is_action_just_pressed("jump") and is_on_floor():
+		GlobalHandler.rando_pitch_audio_play(jumpsound, -0.15, 0.15)
 		velocity.y = jump_speed
 		
 	_animate()
@@ -175,6 +203,7 @@ func _movement(delta: float) -> void:
 # Fire this function whenever ui needs to update its values
 func update_ui() -> void:
 	health_counter.value = health
+	ranged_weapon_ammo.text = "x" + str(dagger_count)
 
 
 func check_death() -> bool:
@@ -186,6 +215,7 @@ func check_death() -> bool:
 
 
 func _ready() -> void:
+	change_ranged_weapon(load("res://Scenes/Projectiles/dagger_projectile.tscn"))
 	update_ui()
 
 
@@ -214,12 +244,14 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 		attacking = false
 	elif sprite.animation == "death":
 		_death()
+	elif sprite.animation == "jump":
+		sprite.play("falling")
 
 
 # Sounds starts only when animation starts
 func _on_animated_sprite_2d_animation_changed() -> void:
 	if sprite.animation == "attack":
-		sword_swing.play()
+		GlobalHandler.rando_pitch_audio_play(sword_swing, -0.05, 0.05)
 	elif sprite.animation == "death":
 		death.play()
 

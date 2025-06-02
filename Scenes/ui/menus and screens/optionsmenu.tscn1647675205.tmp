@@ -105,7 +105,6 @@ text = "Effects Volume "
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-mouse_default_cursor_shape = 2
 min_value = -20.0
 max_value = 10.0
 
@@ -123,7 +122,6 @@ text = "Ambience Volume"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-mouse_default_cursor_shape = 2
 min_value = -20.0
 max_value = 10.0
 
@@ -141,7 +139,6 @@ text = "Music Volume"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-mouse_default_cursor_shape = 2
 min_value = -20.0
 max_value = 10.0
 
@@ -159,7 +156,6 @@ text = "Disable Music"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 8
-mouse_default_cursor_shape = 2
 theme_override_font_sizes/font_size = 32
 
 [node name="KeysPanel" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
@@ -199,11 +195,10 @@ theme_override_constants/shadow_offset_y = 1
 theme_override_font_sizes/font_size = 24
 text = "Move Left"
 
-[node name="left" type="LineEdit" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/KeysPanel/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="LeftEdit" type="LineEdit" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/KeysPanel/MarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 10
-mouse_default_cursor_shape = 0
 placeholder_text = "..."
 alignment = 1
 editable = false
@@ -228,11 +223,10 @@ theme_override_constants/shadow_offset_y = 1
 theme_override_font_sizes/font_size = 24
 text = "Move Right"
 
-[node name="right" type="LineEdit" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/KeysPanel/MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="RightEdit" type="LineEdit" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/KeysPanel/MarginContainer/VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 10
-mouse_default_cursor_shape = 0
 placeholder_text = "..."
 alignment = 1
 editable = false
@@ -257,11 +251,10 @@ theme_override_constants/shadow_offset_y = 1
 theme_override_font_sizes/font_size = 24
 text = "Jump"
 
-[node name="jump" type="LineEdit" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/KeysPanel/MarginContainer/VBoxContainer/HBoxContainer3"]
+[node name="JumpEdit" type="LineEdit" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/KeysPanel/MarginContainer/VBoxContainer/HBoxContainer3"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 10
-mouse_default_cursor_shape = 0
 placeholder_text = "..."
 alignment = 1
 editable = false
@@ -286,11 +279,10 @@ theme_override_constants/shadow_offset_y = 1
 theme_override_font_sizes/font_size = 24
 text = "Attack (Melee)"
 
-[node name="attack" type="LineEdit" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/KeysPanel/MarginContainer/VBoxContainer/HBoxContainer4"]
+[node name="MeleeEdit" type="LineEdit" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/KeysPanel/MarginContainer/VBoxContainer/HBoxContainer4"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 10
-mouse_default_cursor_shape = 0
 placeholder_text = "..."
 alignment = 1
 editable = false
@@ -313,13 +305,12 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 1
 theme_override_constants/shadow_offset_y = 1
 theme_override_font_sizes/font_size = 24
-text = "Ranged Attack"
+text = "Throw Dagger (Attack Up)"
 
-[node name="throw" type="LineEdit" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/KeysPanel/MarginContainer/VBoxContainer/HBoxContainer5"]
+[node name="RangedEdit" type="LineEdit" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/KeysPanel/MarginContainer/VBoxContainer/HBoxContainer5"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 10
-mouse_default_cursor_shape = 0
 placeholder_text = "..."
 alignment = 1
 editable = false
@@ -344,11 +335,10 @@ theme_override_constants/shadow_offset_y = 1
 theme_override_font_sizes/font_size = 24
 text = "Pause Game"
 
-[node name="pause" type="LineEdit" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/KeysPanel/MarginContainer/VBoxContainer/HBoxContainer6"]
+[node name="PauseEdit" type="LineEdit" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/KeysPanel/MarginContainer/VBoxContainer/HBoxContainer6"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 10
-mouse_default_cursor_shape = 0
 placeholder_text = "..."
 alignment = 1
 editable = false
@@ -369,7 +359,6 @@ alignment = 1
 custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 size_flags_horizontal = 4
-mouse_default_cursor_shape = 2
 theme_override_font_sizes/font_size = 32
 theme_override_styles/hover = ExtResource("7_n8uef")
 theme_override_styles/pressed = ExtResource("8_7l2dj")
@@ -380,7 +369,6 @@ text = "Back"
 custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 size_flags_horizontal = 4
-mouse_default_cursor_shape = 2
 theme_override_font_sizes/font_size = 32
 theme_override_styles/hover = ExtResource("7_n8uef")
 theme_override_styles/pressed = ExtResource("8_7l2dj")
@@ -391,4 +379,3 @@ text = "Apply"
 [connection signal="value_changed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/SettingsPanel/MarginContainer/VBoxContainer/HBoxContainer2/AmbienceSlider" to="." method="_on_ambience_slider_value_changed"]
 [connection signal="value_changed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/SettingsPanel/MarginContainer/VBoxContainer/HBoxContainer3/MusicSlider" to="." method="_on_music_slider_value_changed"]
 [connection signal="toggled" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/SettingsPanel/MarginContainer/VBoxContainer/HBoxContainer4/MusicToggle" to="." method="_on_music_toggle_toggled"]
-[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/Apply" to="." method="_on_apply_pressed"]

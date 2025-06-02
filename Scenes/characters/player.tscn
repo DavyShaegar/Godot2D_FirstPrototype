@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://doi31417catiw"]
+[gd_scene load_steps=62 format=3 uid="uid://doi31417catiw"]
 
 [ext_resource type="Script" uid="uid://cnbua2lihqwcj" path="res://Scenes/characters/player.gd" id="1_0r5da"]
 [ext_resource type="Texture2D" uid="uid://bx2y4ryk3erxr" path="res://Graphics/Character/char_blue.png" id="1_kvnrr"]
@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://bmuw2lfvbkvoa" path="res://Sounds/sfx/footstep_1.mp3" id="3_twm3q"]
 [ext_resource type="AudioStream" uid="uid://c2htxkp5tcuhl" path="res://Sounds/sfx/playerdeathsound.mp3" id="5_8liwr"]
 [ext_resource type="AudioStream" uid="uid://b7mus8bv64fiw" path="res://Sounds/sfx/daggerthrow.mp3" id="6_0r5da"]
+[ext_resource type="AudioStream" uid="uid://c14atimjfgbhm" path="res://Sounds/sfx/leavesjump.mp3" id="7_2si0u"]
 [ext_resource type="Texture2D" uid="uid://bs6jyh0ejqtr5" path="res://Graphics/Character/char_portrait.png" id="7_5cq8p"]
 [ext_resource type="Theme" uid="uid://day1x4io7q8lu" path="res://Graphics/Styles/menufont.tres" id="7_8liwr"]
 [ext_resource type="PackedScene" uid="uid://dddwa1pej1urq" path="res://Scenes/ui/menus and screens/deathscreen.tscn" id="8_fgiwp"]
@@ -82,6 +83,22 @@ region = Rect2(112, 336, 56, 56)
 atlas = ExtResource("1_kvnrr")
 region = Rect2(168, 336, 56, 56)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_x2d7j"]
+atlas = ExtResource("1_kvnrr")
+region = Rect2(56, 224, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_orfm8"]
+atlas = ExtResource("1_kvnrr")
+region = Rect2(112, 224, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qf7uy"]
+atlas = ExtResource("1_kvnrr")
+region = Rect2(168, 224, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hadr0"]
+atlas = ExtResource("1_kvnrr")
+region = Rect2(224, 224, 56, 56)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_r12e6"]
 atlas = ExtResource("1_kvnrr")
 region = Rect2(0, 0, 56, 56)
@@ -137,22 +154,6 @@ region = Rect2(392, 168, 56, 56)
 [sub_resource type="AtlasTexture" id="AtlasTexture_ibovo"]
 atlas = ExtResource("1_kvnrr")
 region = Rect2(0, 224, 56, 56)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_x2d7j"]
-atlas = ExtResource("1_kvnrr")
-region = Rect2(56, 224, 56, 56)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_orfm8"]
-atlas = ExtResource("1_kvnrr")
-region = Rect2(112, 224, 56, 56)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qf7uy"]
-atlas = ExtResource("1_kvnrr")
-region = Rect2(168, 224, 56, 56)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hadr0"]
-atlas = ExtResource("1_kvnrr")
-region = Rect2(224, 224, 56, 56)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1p23y"]
 atlas = ExtResource("1_kvnrr")
@@ -248,6 +249,23 @@ animations = [{
 "loop": false,
 "name": &"death",
 "speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x2d7j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_orfm8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qf7uy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hadr0")
+}],
+"loop": true,
+"name": &"falling",
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -371,7 +389,23 @@ corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "areaof_melee_attack", "player_panel", "health_counter", "death_screen", "sword_swing", "steps", "dagger_sound", "death")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gul8o"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(0.172549, 0.243137, 0.329412, 0.698039)
+border_width_left = 2
+border_width_top = 4
+border_width_right = 2
+border_width_bottom = 4
+border_color = Color(0.105882, 0.113725, 0.176471, 0.658824)
+border_blend = true
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_detail = 1
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "areaof_melee_attack", "player_panel", "health_counter", "death_screen", "ranged_weapon_icon", "ranged_weapon_ammo", "sword_swing", "steps", "dagger_sound", "death", "jumpsound")]
 scale = Vector2(2, 2)
 collision_layer = 2
 collision_mask = 37
@@ -381,10 +415,13 @@ areaof_melee_attack = NodePath("AreaofMeleeAttack")
 player_panel = NodePath("UI/PlayerPanel")
 health_counter = NodePath("UI/PlayerPanel/MarginContainer/HBoxContainer/VBoxContainer/HealthBar")
 death_screen = NodePath("UI/Deathscreen")
+ranged_weapon_icon = NodePath("UI/PanelContainer/RangedWeaponContainer/RangedWeaponIcon")
+ranged_weapon_ammo = NodePath("UI/PanelContainer/RangedWeaponContainer/RangedWeaponAmmo")
 sword_swing = NodePath("Audio/swing")
 steps = NodePath("Audio/footstep")
 dagger_sound = NodePath("Audio/deathsound")
 death = NodePath("Audio/deathsound")
+jumpsound = NodePath("Audio/jumpsound")
 dagger = Object(AudioStreamPlayer2D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"position":Vector2(0, 0),"rotation":0.0,"scale":Vector2(1, 1),"skew":0.0,"stream":ExtResource("6_0r5da"),"volume_db":0.0,"pitch_scale":1.0,"autoplay":false,"stream_paused":false,"max_distance":2000.0,"attenuation":1.0,"max_polyphony":1,"panning_strength":1.0,"bus":&"Master","area_mask":1,"playback_type":0,"script":null)
 
 
@@ -405,7 +442,8 @@ metadata/_edit_lock_ = true
 position = Vector2(0, -14)
 scale = Vector2(1.08929, 1.09694)
 sprite_frames = SubResource("SpriteFrames_uubgo")
-animation = &"run"
+animation = &"falling"
+frame_progress = 0.473634
 speed_scale = 1.5
 metadata/_edit_lock_ = true
 
@@ -439,6 +477,10 @@ bus = &"SFX"
 
 [node name="daggerthrow" type="AudioStreamPlayer2D" parent="Audio"]
 stream = ExtResource("6_0r5da")
+bus = &"SFX"
+
+[node name="jumpsound" type="AudioStreamPlayer2D" parent="Audio"]
+stream = ExtResource("7_2si0u")
 bus = &"SFX"
 
 [node name="UI" type="CanvasLayer" parent="."]
@@ -507,6 +549,26 @@ offset_left = -144.0
 offset_top = -88.0
 offset_right = 164.0
 offset_bottom = 88.0
+
+[node name="PanelContainer" type="PanelContainer" parent="UI"]
+offset_left = -8.0
+offset_top = 168.0
+offset_right = 180.0
+offset_bottom = 256.0
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_gul8o")
+
+[node name="RangedWeaponContainer" type="HBoxContainer" parent="UI/PanelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="RangedWeaponIcon" type="TextureRect" parent="UI/PanelContainer/RangedWeaponContainer"]
+layout_mode = 2
+expand_mode = 2
+
+[node name="RangedWeaponAmmo" type="Label" parent="UI/PanelContainer/RangedWeaponContainer"]
+layout_mode = 2
+theme = ExtResource("7_8liwr")
 
 [node name="Projectiles" type="Node" parent="."]
 unique_name_in_owner = true

@@ -6,9 +6,10 @@ extends Area2D
 @export_category("Projectile Stats")
 @export var speed: int = 450
 @export var damage: int = 2
+@export var def_count: int = 20
+@export var sprite: CompressedTexture2D
 
 @onready var target: Vector2
-
 
 func throw(direction: Vector2) -> void:
 	look_at(direction)
@@ -25,6 +26,7 @@ func _on_body_entered(body: Node2D) -> void:
 		queue_free()
 	else:
 		queue_free()
+
 
 # Deletes the projectile after a while if it hasn't hit anything
 func _on_time_to_live_timeout() -> void:

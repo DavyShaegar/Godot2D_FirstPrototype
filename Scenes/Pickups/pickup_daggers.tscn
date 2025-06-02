@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://cwsguquqqhnbv"]
+
+[ext_resource type="Script" uid="uid://rk43bx2yiue2" path="res://Scenes/Pickups/pickup_base.gd" id="1_a8mjc"]
+[ext_resource type="PackedScene" uid="uid://dlquadl3k1qsf" path="res://Scenes/Particles/dagger_pickup_particle.tscn" id="2_2da18"]
+[ext_resource type="AudioStream" uid="uid://h3y7sbx4ivas" path="res://Sounds/sfx/dagger_pickup.mp3" id="2_kskvv"]
+[ext_resource type="Texture2D" uid="uid://cwlpat1thb6sr" path="res://Graphics/Character/dagger.png" id="3_kskvv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2da18"]
+size = Vector2(48, 48)
+
+[node name="PickupDaggers" type="Area2D"]
+collision_layer = 32
+collision_mask = 2
+script = ExtResource("1_a8mjc")
+is_active = true
+pickup_type = 2
+pickup_value = 3
+score_reward = 10
+pickup_sound = ExtResource("2_kskvv")
+metadata/_custom_type_script = "uid://rk43bx2yiue2"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_2da18")
+
+[node name="DaggerPickupParticle" parent="." instance=ExtResource("2_2da18")]
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+position = Vector2(-11, 2)
+rotation = -1.5708
+scale = Vector2(2, 2)
+texture = ExtResource("3_kskvv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(6, -3)
+scale = Vector2(2, 2)
+texture = ExtResource("3_kskvv")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(-4, -5)
+rotation = -0.785398
+scale = Vector2(2, 2)
+texture = ExtResource("3_kskvv")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
