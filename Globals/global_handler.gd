@@ -26,7 +26,7 @@ func fade_out(canvas: CanvasModulate, duration: float) -> void:
 
 
 ## Tween for floating text after player heals
-func _floating_health_effect(label: Label) -> void:
+func _floating_pickup_effect(label: Label) -> void:
 	var tween := create_tween()
 	
 	tween.set_trans(Tween.TRANS_SINE)
@@ -71,21 +71,36 @@ func show_floating_damage(entity_hit: CharacterBody2D, damage: int) -> void:
 	_floating_damage_effect(in_floating_damage)
 
 
-func show_floating_health_pickup(player: Player, amount_healed: int) -> void:
-	var in_floating_health: Label = floating.instantiate()
-	in_floating_health.add_theme_color_override("font_color", Color.GREEN)
-	
-	in_floating_health.text = "+" + str(amount_healed)
-	in_floating_health.global_position = player.global_position - Vector2(0, 50)
-	add_child(in_floating_health)
-	_floating_health_effect(in_floating_health)
+# Shows floating text based on pickup
+func show_floating_pickup(player: Player, pickup_type: Pickup.types, amount: int) -> void:
+	var in_floating: Label = floating.instantiate()
+	match pickup_type:
+		0: # Treasure
+			in_floating.add_theme_color_override("font_color", Color.YELLOW)
+			in_floating.text = "+" + str(amount) + " points"
+		1: # Health
+			in_floating.add_theme_color_override("font_color", Color.GREEN)
+			in_floating.text = "+" + str(amount)
+		2: # Ammo
+			in_floating.add_theme_color_override("font_color", Color.GRAY)
+			in_floating.text = "+" + str(amount) + " daggers"
+		3: # Upgrade
+			pass
+		4: # Powerup
+			pass
+			
+	in_floating.global_position = player.global_position - Vector2(0, 50)
+	add_child(in_floating)
+	_floating_pickup_effect(in_floating)
 
 
 # Plays an audio with a random pitch of a value between 2 ranges
 # Then resets the pitch
 func rando_pitch_audio_play(Audio: AudioStreamPlayer2D, from_range: float, to_range: float) -> void:
 	var og_pitch_scale: float = Audio.pitch_scale
-	Audio.pitch_scale += randf_range(from_range, to_range)
+	print("Normal pitch: ", og_pitch_scale)
+	Audio.pitch_scale = randf_range(from_range, to_range)
+	print("New pitch: ", Audio.pitch_scale)
 	Audio.play()
 	
 	# Waits for the audio to finish properly
@@ -95,7 +110,7 @@ func rando_pitch_audio_play(Audio: AudioStreamPlayer2D, from_range: float, to_ra
 
 # Removes nodes (use signals and connect to this function)
 func global_remove(node: Node2D) -> void:
-	print("Removed", node)
+	print(node.name, " --- DELETED")
 	node.queue_free()
 	
 

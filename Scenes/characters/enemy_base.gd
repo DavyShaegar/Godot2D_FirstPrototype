@@ -10,6 +10,7 @@ extends CharacterBody2D
 @export var max_health: int
 @export var damage: int
 @export var speed: int
+@export var score_reward: int
 
 
 @export_category("Enemy Nodes")
@@ -19,6 +20,7 @@ extends CharacterBody2D
 @export var collision: CollisionShape2D # Remove this when death animation plays so that the body won't be an obstable
 @export var los: Area2D # Line of sight. Handles entity perception
 @export var time_to_forget: Timer # Time for the entity to reset aggro if target is outside reach
+@export var health_bar: ProgressBar
 
 
 # States explanation:
@@ -37,6 +39,16 @@ enum States {idle, run, attack, hit, death}
 @export var is_aggro: bool # If enemy is actively chasing the player
 @export var entity_target: CharacterBody2D # Navigation target
 
+# All generic sounds for all enemies
+@export_category("Enemy Sounds")
+@export var sound_run: AudioStreamPlayer2D
+@export var sound_hit: AudioStreamPlayer2D
+@export var sound_attack: AudioStreamPlayer2D
+@export var sound_death: AudioStreamPlayer2D
+
+
+@export_category("Enemy Particles")
+@export var hit_particle: PackedScene
 
 # State changer handler
 func set_state(new_state: States) -> void:
@@ -92,23 +104,60 @@ func _check_surroundings() -> void:
 			if time_to_forget.is_stopped() == false:
 				time_to_forget.stop()
 	
+
+func _update_health_bar() -> void:
+	health_bar.max_value = max_health
+	health_bar.value = health
+
+# Spawns hit particle (based on enemy on exports) whever the enemy is hit
+func _spawn_hit_particle(attacker_direction: Vector2) -> void:
+	var in_hit_particle: GPUParticles2D = hit_particle.instantiate()
 	
-func got_hit(incoming_damage: int) -> void:
+	# Connects the finished signal to a remove node func (to prevent bloat)
+	in_hit_particle.finished.connect(GlobalHandler.global_remove.bind(in_hit_particle))
+	
+	# Adds particle to the scene and activates it
+	in_hit_particle.global_position = global_position
+	in_hit_particle.global_rotation = global_position.angle_to_point(attacker_direction)
+	in_hit_particle.emitting = true
+	add_sibling(in_hit_particle)
+
+# Handles the entities' receiving damage
+func got_hit(attacker: Player = null, incoming_damage: int = 1) -> void:
+	# Not if already dead
+	if current_state == States.death:
+		return
+		
+	# Applies the damage and al GFX flavour
+	health -= incoming_damage
+	GlobalHandler.show_floating_damage(self, incoming_damage)
+	_spawn_hit_particle(attacker.global_position)
+	_update_health_bar()
+	
+	# Play hit sound
+	GlobalHandler.rando_pitch_audio_play(sound_hit, 0.85, 1.15)
+	
 	# Set the entity to death if no more health
 	if health <= 0:
 		set_state(States.death)
+		# Adds score to player if it was the one who hit the enemy
+		# (damage could come from other sources)
+		if attacker != null:
+			attacker.add_score(score_reward)
 		return
-	
-	_play_randomise_pitch(%skel_hurt)
 	
 	# Reset animation if gets hit when it's already being hit
 	if current_state == 3:
 		_reset_animation()
 		_animate()
-		
+	
+	# if enemy still stands, set state to hit
 	set_state(States.hit)
-	health -= incoming_damage
-	GlobalHandler.show_floating_damage(self, incoming_damage)
+
+	
+	# locates the attacker if not aggroed
+	if is_aggro == false:
+		entity_target = attacker
 	
 	
 # Animates the enemy based on the current state
@@ -129,19 +178,25 @@ func _reset_animation() -> void:
 func _flip_character(axis: float) -> void:
 	if axis < position.x:
 		sprite.flip_h = true
+		if is_flying == true:
+			return
 		raycast.scale.x = -1
 	else:
 		sprite.flip_h = false 
+		if is_flying == true:
+			return
 		raycast.scale.x = 1
-
-
-func _play_randomise_pitch(audio_node: AudioStreamPlayer2D) -> void:
-	audio_node.pitch_scale = randf_range(0.85, 1.15)
-	audio_node.play()
 
 
 # Basic behaviour for entities (enemies)
 func _ai_generic_behaviour(delta: float) -> void:
+	
+	# if a flying enemy is dead, drop them to the ground
+	if is_flying == true and current_state == 4:
+		var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
+		velocity.y = move_toward(velocity.y, gravity, delta * gravity)
+		move_and_slide()
+		
 	_animate()
 	
 	if current_state == 3 or current_state == 4:

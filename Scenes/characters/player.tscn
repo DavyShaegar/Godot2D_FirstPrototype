@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://doi31417catiw"]
+[gd_scene load_steps=65 format=3 uid="uid://doi31417catiw"]
 
 [ext_resource type="Script" uid="uid://cnbua2lihqwcj" path="res://Scenes/characters/player.gd" id="1_0r5da"]
 [ext_resource type="Texture2D" uid="uid://bx2y4ryk3erxr" path="res://Graphics/Character/char_blue.png" id="1_kvnrr"]
@@ -154,6 +154,18 @@ region = Rect2(392, 168, 56, 56)
 [sub_resource type="AtlasTexture" id="AtlasTexture_ibovo"]
 atlas = ExtResource("1_kvnrr")
 region = Rect2(0, 224, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tf8qx"]
+atlas = ExtResource("1_kvnrr")
+region = Rect2(280, 224, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sc2al"]
+atlas = ExtResource("1_kvnrr")
+region = Rect2(336, 224, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ny3fl"]
+atlas = ExtResource("1_kvnrr")
+region = Rect2(392, 224, 56, 56)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1p23y"]
 atlas = ExtResource("1_kvnrr")
@@ -333,6 +345,20 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_tf8qx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sc2al")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ny3fl")
+}],
+"loop": false,
+"name": &"landing",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_1p23y")
 }, {
 "duration": 1.0,
@@ -442,8 +468,9 @@ metadata/_edit_lock_ = true
 position = Vector2(0, -14)
 scale = Vector2(1.08929, 1.09694)
 sprite_frames = SubResource("SpriteFrames_uubgo")
-animation = &"falling"
-frame_progress = 0.473634
+animation = &"landing"
+frame = 2
+frame_progress = 1.0
 speed_scale = 1.5
 metadata/_edit_lock_ = true
 

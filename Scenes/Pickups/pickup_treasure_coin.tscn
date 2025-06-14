@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://cqklj52qry7d"]
+
+[ext_resource type="Script" uid="uid://rk43bx2yiue2" path="res://Scenes/Pickups/pickup_base.gd" id="1_4v5qh"]
+[ext_resource type="AudioStream" uid="uid://df355toiva6ld" path="res://Sounds/sfx/coin.mp3" id="2_mwx0e"]
+[ext_resource type="Texture2D" uid="uid://b6sp2vwcelpe4" path="res://Graphics/Items/coin.png" id="2_qiqf6"]
+[ext_resource type="PackedScene" uid="uid://0h14eqo4ju87" path="res://Scenes/Particles/treasure_particles.tscn" id="4_4bcsj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qiqf6"]
+size = Vector2(28, 33)
+
+[node name="PickupTreasureCoin" type="Area2D"]
+collision_layer = 32
+collision_mask = 2
+script = ExtResource("1_4v5qh")
+is_active = true
+score_reward = 100
+pickup_sound = ExtResource("2_mwx0e")
+metadata/_custom_type_script = "uid://rk43bx2yiue2"
+
+[node name="TreasureParticles" parent="." instance=ExtResource("4_4bcsj")]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_qiqf6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_qiqf6")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -20,6 +20,8 @@ extends Area2D
 ## Powerup: temporary buffs
 enum types {score, health, ammo, upgrade, powerup}
 
+# Position for audio stream
+var sound_pos: Vector2
 
 func _set_particles() -> void:
 	pass
@@ -31,6 +33,7 @@ func _create_sound() -> void:
 	var sound := AudioStreamPlayer2D.new()
 	sound.stream = pickup_sound
 	sound.bus = "SFX"
+	sound.global_position = sound_pos
 	add_sibling(sound)
 	sound.play()
 	# Connects this new node to a global function
@@ -48,12 +51,12 @@ func _respawn_handler() -> void:
 		
 		
 func pickup(picked: CharacterBody2D) -> void:
-	
+	# Just adds score to the player
+	picked.add_score(score_reward)
+		
 	match pickup_type:
 		0: # Score
-			# Just adds score to the player
-			if picked is Player:
-				picked.add_score()
+			GlobalHandler.show_floating_pickup(picked, types.score, score_reward)
 		1: # Health
 			if picked.health < picked.max_health:
 				
@@ -66,12 +69,14 @@ func pickup(picked: CharacterBody2D) -> void:
 					picked.health += pickup_value
 				
 				# Shows the floating text
-				GlobalHandler.show_floating_health_pickup(picked, picked.health - previous_health)
+				GlobalHandler.show_floating_pickup(picked, types.health, picked.health - previous_health)
 				
 			else: # No pickup if health is max
+				is_active = true # Reactivates the pickup
 				return
 		2: # Ammo
 			picked.dagger_count += pickup_value
+			GlobalHandler.show_floating_pickup(picked, types.ammo ,pickup_value)
 		3: # Upgrade
 			pass
 		4: # Powerup
@@ -83,8 +88,9 @@ func pickup(picked: CharacterBody2D) -> void:
 	_respawn_handler()
 
 func _on_body_entered(body: Node2D) -> void:
-	if is_active == false:
+	if is_active == false or body is not Player:
 		return
 		
 	is_active = false
+	sound_pos = body.global_position
 	pickup(body)
