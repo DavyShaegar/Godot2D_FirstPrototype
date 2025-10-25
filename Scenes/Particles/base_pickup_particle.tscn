@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://dcaxtrq4s18q8"]
+
+[ext_resource type="Texture2D" uid="uid://cby06jl8qj0yu" path="res://Graphics/Particles/ball_particle.png" id="1_vcpjm"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ucya0"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 30.0
+orbit_velocity_min = 0.0500001
+orbit_velocity_max = 0.0500001
+gravity = Vector3(0, 0, 0)
+radial_accel_min = 10.0
+radial_accel_max = 12.0
+scale_min = 0.02
+scale_max = 0.05
+
+[node name="BasePickupParticle" type="GPUParticles2D"]
+amount = 80
+texture = ExtResource("1_vcpjm")
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_ucya0")

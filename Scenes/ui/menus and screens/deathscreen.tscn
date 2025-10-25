@@ -1,0 +1,97 @@
+[gd_scene load_steps=5 format=3 uid="uid://dddwa1pej1urq"]
+
+[ext_resource type="Theme" uid="uid://day1x4io7q8lu" path="res://Graphics/Styles/menufont.tres" id="1_ccuy4"]
+[ext_resource type="Script" uid="uid://dlp0cwitlrpwq" path="res://Scenes/ui/menus and screens/deathscreen.gd" id="2_nqsu6"]
+[ext_resource type="StyleBox" uid="uid://clyji6tb6te4c" path="res://Graphics/Styles/menu_normal.tres" id="2_sqg4r"]
+[ext_resource type="Texture2D" uid="uid://cse7bqvspevds" path="res://Graphics/Asset 12.png" id="3_uuden"]
+
+[node name="Deathscreen" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_ccuy4")
+script = ExtResource("2_nqsu6")
+
+[node name="PanelContainer2" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -168.0
+offset_top = -126.0
+offset_right = 177.0
+offset_bottom = 112.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("2_sqg4r")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer2/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="Label" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "You Died"
+horizontal_alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 64
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer2/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+alignment = 1
+
+[node name="score" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Score: "
+
+[node name="highscore" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "High Score: "
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer2/MarginContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("3_uuden")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="ExitToMenu" type="Button" parent="PanelContainer2/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Exit To Menu"
+
+[node name="ExitToDesk" type="Button" parent="PanelContainer2/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Exit To Desktop"
+
+[connection signal="pressed" from="PanelContainer2/MarginContainer/VBoxContainer/HBoxContainer/ExitToMenu" to="." method="_on_exit_to_menu_pressed"]
+[connection signal="pressed" from="PanelContainer2/MarginContainer/VBoxContainer/HBoxContainer/ExitToDesk" to="." method="_on_exit_to_desk_pressed"]

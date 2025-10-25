@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://cal2fimjt237m"]
+
+[sub_resource type="Gradient" id="Gradient_0toji"]
+colors = PackedColorArray(1, 1, 1, 1, 0.678944, 0.678944, 0.678944, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_5q84h"]
+gradient = SubResource("Gradient_0toji")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_23qhk"]
+particle_flag_disable_z = true
+direction = Vector3(-1, 0, 0)
+spread = 30.0
+initial_velocity_min = 120.0
+initial_velocity_max = 120.0
+gravity = Vector3(0, 32, 0)
+linear_accel_min = -40.0
+linear_accel_max = -40.0
+scale_min = 2.0
+scale_max = 2.0
+color = Color(0.968587, 5.67943e-06, 7.70092e-07, 1)
+color_ramp = SubResource("GradientTexture1D_5q84h")
+
+[node name="RedBloodParticle" type="GPUParticles2D"]
+emitting = false
+amount = 60
+one_shot = true
+explosiveness = 0.8
+randomness = 1.0
+fixed_fps = 60
+trail_enabled = true
+trail_lifetime = 0.05
+process_material = SubResource("ParticleProcessMaterial_23qhk")

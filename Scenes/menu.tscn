@@ -1,0 +1,755 @@
+[gd_scene load_steps=28 format=4 uid="uid://brl0yxw3ljydo"]
+
+[ext_resource type="Script" uid="uid://xscve5j3lh33" path="res://Scenes/menu.gd" id="1_q3rjx"]
+[ext_resource type="Texture2D" uid="uid://bkgsoit6tdiwg" path="res://Graphics/Background/background_layer_1.png" id="2_tbm5y"]
+[ext_resource type="Texture2D" uid="uid://bx2y4ryk3erxr" path="res://Graphics/Character/char_blue.png" id="3_0jh83"]
+[ext_resource type="Texture2D" uid="uid://xetk7nie6mxt" path="res://Graphics/Background/background_layer_2.png" id="3_6swd7"]
+[ext_resource type="FontFile" uid="uid://dc433a8kg2auu" path="res://Graphics/Fonts/vinque rg.otf" id="3_hop8j"]
+[ext_resource type="Texture2D" uid="uid://bd1i3v633i6lf" path="res://Graphics/Background/background_layer_3.png" id="4_7qvly"]
+[ext_resource type="Texture2D" uid="uid://d0q48sijtxe0f" path="res://Graphics/Tileset/oak_woods_tileset.png" id="5_7qvly"]
+[ext_resource type="PackedScene" uid="uid://cnfeejq8nqild" path="res://Scenes/ui/menus and screens/optionsmenu.tscn" id="6_g8i7c"]
+[ext_resource type="StyleBox" uid="uid://clyji6tb6te4c" path="res://Graphics/Styles/menu_normal.tres" id="6_hxhp4"]
+[ext_resource type="StyleBox" uid="uid://cnjp6cclogl82" path="res://Graphics/Styles/menu_hover.tres" id="7_t7pi8"]
+[ext_resource type="StyleBox" uid="uid://bg5mywnmh2sbb" path="res://Graphics/Styles/menu_pressed.tres" id="8_eoome"]
+[ext_resource type="AudioStream" uid="uid://meyic7m2plye" path="res://Sounds/sfx/forest_ambience.mp3" id="11_rfqti"]
+[ext_resource type="AudioStream" uid="uid://h2p202wqwc31" path="res://Sounds/sfx/UI_click.mp3" id="13_23t3j"]
+[ext_resource type="AudioStream" uid="uid://dask0ypatucq6" path="res://Sounds/Music/lumina.mp3" id="14_8ph6h"]
+
+[sub_resource type="Theme" id="Theme_wbdvm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lsjoj"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+bg_color = Color(0, 0, 0, 0.486275)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+expand_margin_bottom = 2.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rfqti"]
+texture = ExtResource("5_7qvly")
+0:0/0 = 0
+0:0/0/terrain_set = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:0/0 = 0
+1:0/0/terrain_set = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:0/0/terrains_peering_bit/top_left_corner = 0
+1:0/0/terrains_peering_bit/top_side = 0
+1:0/0/terrains_peering_bit/top_right_corner = 0
+2:0/0 = 0
+2:0/0/terrain_set = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:0/0/terrains_peering_bit/top_left_corner = 0
+2:0/0/terrains_peering_bit/top_side = 0
+2:0/0/terrains_peering_bit/top_right_corner = 0
+3:0/0 = 0
+3:0/0/terrain_set = 0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:0/0/terrains_peering_bit/top_left_corner = 0
+3:0/0/terrains_peering_bit/top_side = 0
+3:0/0/terrains_peering_bit/top_right_corner = 0
+4:0/0 = 0
+4:0/0/terrain_set = 0
+4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+4:0/0/terrains_peering_bit/top_left_corner = 0
+4:0/0/terrains_peering_bit/top_side = 0
+4:0/0/terrains_peering_bit/top_right_corner = 0
+5:0/0 = 0
+5:0/0/terrain_set = 0
+5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+7:0/0 = 0
+8:0/0 = 0
+9:0/0 = 0
+10:0/0 = 0
+11:0/0 = 0
+12:0/0 = 0
+13:0/0 = 0
+15:0/0 = 0
+16:0/0 = 0
+18:0/0 = 0
+19:0/0 = 0
+21:0/0 = 0
+22:0/0 = 0
+23:0/0 = 0
+24:0/0 = 0
+25:0/0 = 0
+26:0/0 = 0
+28:0/0 = 0
+29:0/0 = 0
+30:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+7:1/0 = 0
+8:1/0 = 0
+9:1/0 = 0
+10:1/0 = 0
+11:1/0 = 0
+12:1/0 = 0
+13:1/0 = 0
+15:1/0 = 0
+16:1/0 = 0
+18:1/0 = 0
+19:1/0 = 0
+21:1/0 = 0
+22:1/0 = 0
+23:1/0 = 0
+24:1/0 = 0
+25:1/0 = 0
+26:1/0 = 0
+28:1/0 = 0
+29:1/0 = 0
+30:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+21:2/0 = 0
+22:2/0 = 0
+23:2/0 = 0
+25:2/0 = 0
+26:2/0 = 0
+28:2/0 = 0
+29:2/0 = 0
+30:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+4:3/0 = 0
+5:3/0 = 0
+9:3/0 = 0
+10:3/0 = 0
+15:3/0 = 0
+16:3/0 = 0
+21:3/0 = 0
+22:3/0 = 0
+25:3/0 = 0
+26:3/0 = 0
+28:3/0 = 0
+29:3/0 = 0
+30:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+5:4/0 = 0
+7:4/0 = 0
+8:4/0 = 0
+9:4/0 = 0
+10:4/0 = 0
+11:4/0 = 0
+13:4/0 = 0
+14:4/0 = 0
+15:4/0 = 0
+16:4/0 = 0
+17:4/0 = 0
+21:4/0 = 0
+22:4/0 = 0
+23:4/0 = 0
+24:4/0 = 0
+25:4/0 = 0
+26:4/0 = 0
+28:4/0 = 0
+29:4/0 = 0
+30:4/0 = 0
+0:5/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+4:5/0 = 0
+5:5/0 = 0
+7:5/0 = 0
+8:5/0 = 0
+10:5/0 = 0
+11:5/0 = 0
+13:5/0 = 0
+14:5/0 = 0
+16:5/0 = 0
+17:5/0 = 0
+21:5/0 = 0
+22:5/0 = 0
+23:5/0 = 0
+24:5/0 = 0
+25:5/0 = 0
+26:5/0 = 0
+9:6/0 = 0
+10:6/0 = 0
+15:6/0 = 0
+16:6/0 = 0
+2:7/0 = 0
+3:7/0 = 0
+9:7/0 = 0
+10:7/0 = 0
+15:7/0 = 0
+16:7/0 = 0
+22:7/0 = 0
+23:7/0 = 0
+27:7/0 = 0
+28:7/0 = 0
+29:7/0 = 0
+0:8/0 = 0
+1:8/0 = 0
+2:8/0 = 0
+3:8/0 = 0
+4:8/0 = 0
+5:8/0 = 0
+9:8/0 = 0
+10:8/0 = 0
+22:8/0 = 0
+23:8/0 = 0
+27:8/0 = 0
+28:8/0 = 0
+29:8/0 = 0
+0:9/0 = 0
+1:9/0 = 0
+4:9/0 = 0
+5:9/0 = 0
+13:9/0 = 0
+14:9/0 = 0
+15:9/0 = 0
+16:9/0 = 0
+18:9/0 = 0
+19:9/0 = 0
+20:9/0 = 0
+22:9/0 = 0
+23:9/0 = 0
+27:9/0 = 0
+28:9/0 = 0
+29:9/0 = 0
+0:10/0 = 0
+1:10/0 = 0
+2:10/0 = 0
+3:10/0 = 0
+4:10/0 = 0
+5:10/0 = 0
+7:10/0 = 0
+8:10/0 = 0
+9:10/0 = 0
+10:10/0 = 0
+11:10/0 = 0
+13:10/0 = 0
+14:10/0 = 0
+15:10/0 = 0
+16:10/0 = 0
+18:10/0 = 0
+19:10/0 = 0
+20:10/0 = 0
+22:10/0 = 0
+23:10/0 = 0
+27:10/0 = 0
+28:10/0 = 0
+29:10/0 = 0
+0:11/0 = 0
+1:11/0 = 0
+2:11/0 = 0
+3:11/0 = 0
+4:11/0 = 0
+5:11/0 = 0
+7:11/0 = 0
+8:11/0 = 0
+9:11/0 = 0
+10:11/0 = 0
+11:11/0 = 0
+13:11/0 = 0
+14:11/0 = 0
+15:11/0 = 0
+16:11/0 = 0
+27:11/0 = 0
+28:11/0 = 0
+29:11/0 = 0
+0:12/0 = 0
+1:12/0 = 0
+2:12/0 = 0
+3:12/0 = 0
+4:12/0 = 0
+5:12/0 = 0
+13:12/0 = 0
+14:12/0 = 0
+15:12/0 = 0
+16:12/0 = 0
+18:12/0 = 0
+19:12/0 = 0
+20:12/0 = 0
+22:12/0 = 0
+23:12/0 = 0
+24:12/0 = 0
+25:12/0 = 0
+27:12/0 = 0
+28:12/0 = 0
+29:12/0 = 0
+0:13/0 = 0
+1:13/0 = 0
+4:13/0 = 0
+5:13/0 = 0
+7:13/0 = 0
+8:13/0 = 0
+9:13/0 = 0
+10:13/0 = 0
+11:13/0 = 0
+13:13/0 = 0
+14:13/0 = 0
+15:13/0 = 0
+16:13/0 = 0
+18:13/0 = 0
+19:13/0 = 0
+20:13/0 = 0
+22:13/0 = 0
+23:13/0 = 0
+24:13/0 = 0
+25:13/0 = 0
+27:13/0 = 0
+28:13/0 = 0
+29:13/0 = 0
+7:14/0 = 0
+8:14/0 = 0
+9:14/0 = 0
+10:14/0 = 0
+11:14/0 = 0
+13:14/0 = 0
+14:14/0 = 0
+15:14/0 = 0
+16:14/0 = 0
+27:14/0 = 0
+28:14/0 = 0
+29:14/0 = 0
+0:15/0 = 0
+1:15/0 = 0
+2:15/0 = 0
+3:15/0 = 0
+4:15/0 = 0
+5:15/0 = 0
+13:15/0 = 0
+14:15/0 = 0
+15:15/0 = 0
+16:15/0 = 0
+18:15/0 = 0
+19:15/0 = 0
+20:15/0 = 0
+22:15/0 = 0
+23:15/0 = 0
+27:15/0 = 0
+28:15/0 = 0
+29:15/0 = 0
+0:16/0 = 0
+1:16/0 = 0
+2:16/0 = 0
+3:16/0 = 0
+4:16/0 = 0
+5:16/0 = 0
+7:16/0 = 0
+8:16/0 = 0
+9:16/0 = 0
+10:16/0 = 0
+11:16/0 = 0
+13:16/0 = 0
+14:16/0 = 0
+15:16/0 = 0
+16:16/0 = 0
+18:16/0 = 0
+19:16/0 = 0
+20:16/0 = 0
+22:16/0 = 0
+23:16/0 = 0
+27:16/0 = 0
+28:16/0 = 0
+29:16/0 = 0
+0:17/0 = 0
+1:17/0 = 0
+7:17/0 = 0
+8:17/0 = 0
+9:17/0 = 0
+10:17/0 = 0
+11:17/0 = 0
+22:17/0 = 0
+23:17/0 = 0
+27:17/0 = 0
+28:17/0 = 0
+29:17/0 = 0
+0:18/0 = 0
+1:18/0 = 0
+2:18/0 = 0
+3:18/0 = 0
+4:18/0 = 0
+5:18/0 = 0
+27:18/0 = 0
+28:18/0 = 0
+0:19/0 = 0
+1:19/0 = 0
+2:19/0 = 0
+3:19/0 = 0
+4:19/0 = 0
+5:19/0 = 0
+7:19/0 = 0
+8:19/0 = 0
+9:19/0 = 0
+10:19/0 = 0
+11:19/0 = 0
+12:19/0 = 0
+13:19/0 = 0
+14:19/0 = 0
+15:19/0 = 0
+16:19/0 = 0
+17:19/0 = 0
+18:19/0 = 0
+19:19/0 = 0
+20:19/0 = 0
+21:19/0 = 0
+22:19/0 = 0
+24:19/0 = 0
+25:19/0 = 0
+26:19/0 = 0
+27:19/0 = 0
+28:19/0 = 0
+29:19/0 = 0
+30:19/0 = 0
+0:20/0 = 0
+1:20/0 = 0
+2:20/0 = 0
+3:20/0 = 0
+4:20/0 = 0
+5:20/0 = 0
+7:20/0 = 0
+8:20/0 = 0
+9:20/0 = 0
+10:20/0 = 0
+11:20/0 = 0
+12:20/0 = 0
+13:20/0 = 0
+14:20/0 = 0
+15:20/0 = 0
+16:20/0 = 0
+17:20/0 = 0
+18:20/0 = 0
+19:20/0 = 0
+20:20/0 = 0
+21:20/0 = 0
+22:20/0 = 0
+24:20/0 = 0
+25:20/0 = 0
+26:20/0 = 0
+27:20/0 = 0
+28:20/0 = 0
+29:20/0 = 0
+30:20/0 = 0
+0:21/0 = 0
+1:21/0 = 0
+2:21/0 = 0
+7:21/0 = 0
+8:21/0 = 0
+9:21/0 = 0
+10:21/0 = 0
+11:21/0 = 0
+12:21/0 = 0
+13:21/0 = 0
+14:21/0 = 0
+15:21/0 = 0
+16:21/0 = 0
+17:21/0 = 0
+18:21/0 = 0
+19:21/0 = 0
+27:21/0 = 0
+28:21/0 = 0
+29:21/0 = 0
+30:21/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_g8i7c"]
+physics_layer_0/collision_layer = 1
+terrain_set_0/mode = 0
+terrain_set_0/terrain_0/name = "soil"
+terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
+sources/0 = SubResource("TileSetAtlasSource_rfqti")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6swd7"]
+atlas = ExtResource("3_0jh83")
+region = Rect2(0, 112, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7qvly"]
+atlas = ExtResource("3_0jh83")
+region = Rect2(56, 112, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rfqti"]
+atlas = ExtResource("3_0jh83")
+region = Rect2(112, 112, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g8i7c"]
+atlas = ExtResource("3_0jh83")
+region = Rect2(168, 112, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_23t3j"]
+atlas = ExtResource("3_0jh83")
+region = Rect2(224, 112, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ph6h"]
+atlas = ExtResource("3_0jh83")
+region = Rect2(280, 112, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ti5v"]
+atlas = ExtResource("3_0jh83")
+region = Rect2(336, 112, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1by5w"]
+atlas = ExtResource("3_0jh83")
+region = Rect2(392, 112, 56, 56)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kmwmt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6swd7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7qvly")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rfqti")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g8i7c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_23t3j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ph6h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ti5v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1by5w")
+}],
+"loop": true,
+"name": &"default",
+"speed": 7.0
+}]
+
+[node name="mainmenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_wbdvm")
+script = ExtResource("1_q3rjx")
+
+[node name="Decoration" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Decoration"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Decoration/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 48
+
+[node name="title" type="Label" parent="Decoration/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/shadow_outline_size = 10
+theme_override_fonts/font = ExtResource("3_hop8j")
+theme_override_font_sizes/font_size = 128
+text = "Skeleton Forest"
+horizontal_alignment = 1
+vertical_alignment = 3
+
+[node name="MenuContainer" type="VBoxContainer" parent="Decoration/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="score" type="PanelContainer" parent="Decoration/MarginContainer/VBoxContainer/MenuContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_lsjoj")
+
+[node name="highscore" type="Label" parent="Decoration/MarginContainer/VBoxContainer/MenuContainer/score"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 50
+text = "High Score: 0"
+
+[node name="ButtonContainer" type="VBoxContainer" parent="Decoration/MarginContainer/VBoxContainer/MenuContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="Start" type="Button" parent="Decoration/MarginContainer/VBoxContainer/MenuContainer/ButtonContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_vertical = 4
+theme = SubResource("Theme_wbdvm")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/hover = ExtResource("7_t7pi8")
+theme_override_styles/pressed = ExtResource("8_eoome")
+theme_override_styles/normal = ExtResource("6_hxhp4")
+text = "Start"
+
+[node name="Options" type="Button" parent="Decoration/MarginContainer/VBoxContainer/MenuContainer/ButtonContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 48
+theme_override_styles/hover = ExtResource("7_t7pi8")
+theme_override_styles/pressed = ExtResource("8_eoome")
+theme_override_styles/normal = ExtResource("6_hxhp4")
+text = "Options"
+
+[node name="Exit" type="Button" parent="Decoration/MarginContainer/VBoxContainer/MenuContainer/ButtonContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 48
+theme_override_styles/hover = ExtResource("7_t7pi8")
+theme_override_styles/pressed = ExtResource("8_eoome")
+theme_override_styles/normal = ExtResource("6_hxhp4")
+text = "Exit"
+
+[node name="optionsmenu" parent="Decoration" node_paths=PackedStringArray("menu_click") instance=ExtResource("6_g8i7c")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 640.0
+offset_top = 416.0
+offset_right = 640.0
+offset_bottom = 416.0
+menu_click = NodePath("../../Audio/MenuClick")
+
+[node name="name" type="Label" parent="Decoration"]
+layout_mode = 2
+offset_left = 24.0
+offset_top = 648.0
+offset_right = 1264.0
+offset_bottom = 688.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/shadow_outline_size = 10
+theme_override_fonts/font = ExtResource("3_hop8j")
+theme_override_font_sizes/font_size = 32
+text = "Made By: Davy Shaegar"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Screen" type="CanvasModulate" parent="Decoration"]
+unique_name_in_owner = true
+color = Color(0, 0, 0, 1)
+
+[node name="Parallax2D" type="ParallaxBackground" parent="Decoration"]
+
+[node name="ParallaxScreen" type="CanvasModulate" parent="Decoration/Parallax2D"]
+unique_name_in_owner = true
+color = Color(0, 0, 0, 1)
+
+[node name="BackgroundLayer1" type="Sprite2D" parent="Decoration/Parallax2D"]
+position = Vector2(640, 359.5)
+scale = Vector2(4, 4.00556)
+texture = ExtResource("2_tbm5y")
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="Decoration/Parallax2D"]
+motion_mirroring = Vector2(1280, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Decoration/Parallax2D/ParallaxLayer"]
+position = Vector2(640, 359)
+scale = Vector2(4, 4.01111)
+texture = ExtResource("3_6swd7")
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="Decoration/Parallax2D"]
+motion_mirroring = Vector2(1280, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Decoration/Parallax2D/ParallaxLayer2"]
+position = Vector2(640, 359)
+scale = Vector2(4, 4.01111)
+texture = ExtResource("4_7qvly")
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="Decoration/Parallax2D"]
+motion_mirroring = Vector2(1280, 0)
+
+[node name="TileMapLayer" type="TileMapLayer" parent="Decoration/Parallax2D/ParallaxLayer3"]
+position = Vector2(0, 16)
+scale = Vector2(4, 4)
+tile_map_data = PackedByteArray("AAAEAAoAAAABAAAAAAAFAAoAAAADAAAAAAAGAAoAAAADAAAAAAAHAAoAAAAEAAAAAAAIAAoAAAADAAAAAAAJAAoAAAABAAAAAAAKAAoAAAAEAAAAAAALAAoAAAADAAAAAAAMAAoAAAADAAAAAAANAAoAAAABAAAAAAAOAAoAAAAEAAAAAAAPAAoAAAAEAAAAAAAQAAoAAAADAAAAAAARAAoAAAAEAAAAAAASAAoAAAABAAAAAAATAAoAAAADAAAAAAAUAAoAAAADAAAAAAAVAAoAAAAEAAAAAAAWAAoAAAADAAAAAAAXAAoAAAABAAAAAAABAAoAAAADAAAAAAAAAAoAAAABAAAAAAACAAoAAAAEAAAAAAADAAoAAAADAAAAAAA=")
+tile_set = SubResource("TileSet_g8i7c")
+
+[node name="CharMarker" type="Marker2D" parent="Decoration/Parallax2D"]
+unique_name_in_owner = true
+position = Vector2(208, 512)
+rotation = 3.14159
+scale = Vector2(5, -5)
+
+[node name="CharExitMarker" type="Marker2D" parent="Decoration/Parallax2D"]
+unique_name_in_owner = true
+position = Vector2(1216, 512)
+rotation = 3.14159
+scale = Vector2(5, -5)
+
+[node name="charmenu" type="AnimatedSprite2D" parent="Decoration/Parallax2D"]
+unique_name_in_owner = true
+position = Vector2(-144, 512)
+rotation = 3.14159
+scale = Vector2(5, -5)
+sprite_frames = SubResource("SpriteFrames_kmwmt")
+autoplay = "default"
+frame_progress = 0.528425
+flip_h = true
+
+[node name="Audio" type="Node2D" parent="."]
+
+[node name="Ambience" type="AudioStreamPlayer2D" parent="Audio"]
+unique_name_in_owner = true
+stream = ExtResource("11_rfqti")
+autoplay = true
+bus = &"Ambience"
+parameters/looping = true
+
+[node name="MenuClick" type="AudioStreamPlayer2D" parent="Audio"]
+unique_name_in_owner = true
+stream = ExtResource("13_23t3j")
+bus = &"SFX"
+
+[node name="Music" type="AudioStreamPlayer2D" parent="Audio"]
+unique_name_in_owner = true
+stream = ExtResource("14_8ph6h")
+volume_db = -10.0
+autoplay = true
+bus = &"Music"
+parameters/looping = true
+
+[connection signal="pressed" from="Decoration/MarginContainer/VBoxContainer/MenuContainer/ButtonContainer/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="Decoration/MarginContainer/VBoxContainer/MenuContainer/ButtonContainer/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="Decoration/MarginContainer/VBoxContainer/MenuContainer/ButtonContainer/Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="Decoration/optionsmenu/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/Back" to="." method="_on_back_pressed"]
+
+[editable path="Decoration/optionsmenu"]
